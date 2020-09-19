@@ -10,7 +10,8 @@ function submitSearch(event) {
   if (userInput) {
     console.log('You wrote something!')
   } else {
-    console.log('Did not write anything');
+    document.getElementById('city-name').value = '';
+    showSearchError('Please enter a city name');
   }
 }
 
