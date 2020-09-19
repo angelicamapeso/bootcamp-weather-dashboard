@@ -3,6 +3,7 @@ document.getElementById('search-city').addEventListener('submit', submitSearch);
 
 function submitSearch(event) {
   event.preventDefault();
+  resetErrors();
   
   let userInput = document.getElementById('city-name').value;
   userInput = userInput.replace(/\s/g,'');
@@ -15,12 +16,12 @@ function submitSearch(event) {
 }
 
 function resetErrors() {
-  document.getElementById('city-name').classList.remove('boder','border-danger');
+  document.getElementById('city-name').classList.remove('border-danger');
   document.getElementById('error').textContent = '';
 }
 
 function showSearchError(message) {
-  document.getElementById('city-name').classList.add('boder','border-danger');
+  document.getElementById('city-name').classList.add('border-danger');
   document.getElementById('error').textContent = message;
 }
 //fetch the data
