@@ -5,14 +5,19 @@ function submitSearch(event) {
   event.preventDefault();
   resetSearchError();
   
-  let userInput = document.getElementById('city-name').value;
-  userInput = userInput.replace(/\s/g,'');
+  const userInput = getUserInput();
 
   if (userInput) {
     console.log('You wrote something!')
   } else {
     console.log('Did not write anything');
   }
+}
+
+function getUserInput() {
+  let userInput = document.getElementById('city-name').value;
+  userInput = userInput.replace(/\s/g,'');
+  return userInput;
 }
 
 function resetSearchError() {
