@@ -14,7 +14,10 @@ function submitSearch(event) {
   }
 }
 
-
+function showSearchError(message) {
+  document.getElementById('city-name').classList.add('boder','border-danger');
+  document.getElementById('error').textContent = message;
+}
 //fetch the data
   //error if city could not be found
   
