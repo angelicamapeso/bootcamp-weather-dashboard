@@ -16,6 +16,11 @@
       //current
       //search history[]
 
+//fetch data
+  //fetch current data
+  //fetch 5 day
+  //fetch uv index
+
 //on page load
   //grab the search object from local storage
   //display the overview info from current (make another fetch)
