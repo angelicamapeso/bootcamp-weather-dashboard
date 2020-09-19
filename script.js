@@ -1,7 +1,7 @@
 //Search button event listener
-document.getElementById('search-city').addEventListener('submit', getUserInput);
+document.getElementById('search-city').addEventListener('submit', submitSearch);
 
-function getUserInput(event) {
+function submitSearch(event) {
   event.preventDefault();
   
   let userInput = document.getElementById('city-name').value;
