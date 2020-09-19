@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
     <head>
       <!-- Required meta tags -->
       <meta charset="utf-8">
@@ -12,13 +12,22 @@
       <script src="https://kit.fontawesome.com/34b9bc8a79.js" crossorigin="anonymous"></script>
 
       <title>Weather Dashboard</title>
+
+      <!--For responsiveness of search bar-->
+      <style>
+        @media only screen and (min-width: 992px) {
+          #dashboard {
+            flex-grow: 1;
+          }
+        }
+      </style>
     </head>
-    <body>
-    <main class="container-fluid">
+    <body class="h-100">
+    <main class="container-fluid h-100 d-flex flex-column">
       <!--Title-->
       <div class="row">
         <div class="col p-0">
-          <div class="jumbotron jumbotron-fluid py-1 bg-dark">
+          <div class="jumbotron jumbotron-fluid py-1 mb-0 bg-dark">
             <div class="container-fluid">
               <h1 class="text-center text-light">Weather Dashboard</h1>
             </div>
@@ -26,9 +35,9 @@
         </div>
       </div>
       <!--Dashboard-->
-      <div class="row">
+      <div class="row" id="dashboard">
         <!--Search-->
-        <div class="col-3 bg-light">
+        <div class="col col-lg-3 py-3 bg-light" id="search-bar">
           <!--Search bar-->
           <form class="form-group">
             <label for="search-city" class="h4">Search for a city:</label>
@@ -47,7 +56,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-9">
+        <div class="col-lg-9">
           <!--Overview Card-->
           <!--Five day forecast-->
         </div>
