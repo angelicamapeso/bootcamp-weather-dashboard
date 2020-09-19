@@ -14,6 +14,11 @@ function submitSearch(event) {
   }
 }
 
+function resetErrors() {
+  document.getElementById('city-name').classList.remove('boder','border-danger');
+  document.getElementById('error').textContent = '';
+}
+
 function showSearchError(message) {
   document.getElementById('city-name').classList.add('boder','border-danger');
   document.getElementById('error').textContent = message;
