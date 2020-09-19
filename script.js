@@ -1,5 +1,19 @@
-//handle user input
-  //does not submit if user tries to submit nothing
+//Search button event listener
+document.getElementById('search-city').addEventListener('submit', getUserInput);
+
+function getUserInput(event) {
+  event.preventDefault();
+  
+  let userInput = document.getElementById('city-name').value;
+  userInput = userInput.replace(/\s/g,'');
+
+  if (userInput) {
+    console.log('You wrote something!')
+  } else {
+    console.log('Did not write anything');
+  }
+}
+
 
 //fetch the data
   //error if city could not be found
