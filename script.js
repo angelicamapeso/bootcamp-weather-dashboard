@@ -3,7 +3,7 @@ document.getElementById('search-city').addEventListener('submit', submitSearch);
 
 function submitSearch(event) {
   event.preventDefault();
-  resetErrors();
+  resetSearchError();
   
   let userInput = document.getElementById('city-name').value;
   userInput = userInput.replace(/\s/g,'');
@@ -15,7 +15,7 @@ function submitSearch(event) {
   }
 }
 
-function resetErrors() {
+function resetSearchError() {
   document.getElementById('city-name').classList.remove('border-danger');
   document.getElementById('error').textContent = '';
 }
