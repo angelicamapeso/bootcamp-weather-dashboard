@@ -120,6 +120,20 @@ function getUVIndex(weatherObj, apiKey) {
     });
 }
 
+function getUVIndexColor(uvIndex) {
+  if (uvIndex <= 2) {
+    return 'bg-secondary text-white';
+  } else if (uvIndex <=5) {
+    return 'bg-dark text-white';
+  } else if (uvIndex <=7) {
+    return 'bg-success text-white';
+  } else if (uvIndex <=10) {
+    return 'bg-warning text-dark';
+  } else {
+    return 'bg-danger text-white';
+  }
+}
+
 //getting URL queries
 function getFiveDayForecastURL(cityName, apiKey) {
   return 'http://api.openweathermap.org/data/2.5/forecast?'
