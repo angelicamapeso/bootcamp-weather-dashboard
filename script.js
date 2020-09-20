@@ -8,7 +8,7 @@ function submitSearch(event) {
   const userInput = getUserInput();
 
   if (userInput) {
-    getWeatherData(userInput);
+    startGettingWeatherData(userInput);
   } else {
     document.getElementById('city-name').value = '';
     showSearchError('Please enter a city name');
