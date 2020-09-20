@@ -122,9 +122,8 @@ function getUVIndex(weatherObj, apiKey) {
       return response.json();
     })
     .then(function(data){
-      weatherData['uvIndex'] = data.value;
-      console.log(weatherData);
-      // displayOverviewCard(weatherObj);
+      weatherData.currentDay['uvIndex'] = data.value;
+
     });
 }
 
