@@ -71,40 +71,28 @@ function getFiveDayForecast(cityName, apiKey) {
 }
 
 function getWeatherObject(cityName, dayList, lat, lon) {
-  const currentDate = new Date();
-  const currentDateMilliseconds = Math.floor(currentDate.getTime()/1000.0);
-
   let weatherObj =
   {
     cityName: cityName,
     coord:
     {
-      lat: '',
-      lon: '',
+      lat: lat,
+      lon: lon,
     },
     currentDay: {},
     next5Days: [],
   };
 
-  for (day of dayList) {
-    if(currentDateMilliseconds > day.dt) {
+  //5 day forecast returns weather every 3 hours per day
+  //24 hrs in a day, so every 24/3 = 8 entries,
+  //gives you the entry for the next day at the same time
+  dayList.forEach(function(day, index) {
+    if (index === 0) {
       weatherObj.currentDay = day;
-    } else {
-      let listDate = new Date(day.dt_txt);
-      if (listDate.getHours() === 12
-        && listDate.getDate() != currentDate.getDate()) {
-        weatherObj.next5Days.push(day);
-      }
+    } else if (index % 8 === 0) {
+      weatherObj.next5Days.push(day);
     }
-  }
-  if (Object.keys(weatherObj.currentDay).length === 0) {
-    weatherObj.currentDay = dayList[0];
-  }
-  if (weatherObj.next5Days.length < 5) {
-    weatherObj.next5Days.push(dayList[dayList.length - 1]);
-  }
-  weatherObj.coord.lat = lat;
-  weatherObj.coord.lon = lon;
+  });
 
   return weatherObj;
 }
