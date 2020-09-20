@@ -66,6 +66,7 @@ function getCurrentWeather(cityName, apiKey) {
       lon: '',
       lat: '',
     },
+    cityName: properlyCapitalize(cityName),
     icon: '',
     temp: '',
     humidity: '',
@@ -79,8 +80,7 @@ function getCurrentWeather(cityName, apiKey) {
     })
     .then(function(data){
       if (data.hasOwnProperty('message') && data.hasOwnProperty('cod')) {
-        let message = data.message;
-        message = message.charAt(0).toUpperCase() + message.slice(1);
+        let message = properlyCapitalize(data.message);
         showSearchError(message);
       } else {
         weatherObj.coord.lon = data.coord.lon;
@@ -90,8 +90,15 @@ function getCurrentWeather(cityName, apiKey) {
         weatherObj.humidity = data.main.humidity;
         weatherObj.windSpeed = data.wind.speed;
 
+        getUVIndex(weatherObj, apiKey);
       }
     });
+}
+
+function properlyCapitalize(str) {
+  let copy = str;
+  copy = copy.toLowerCase();
+  return copy.charAt(0).toUpperCase() + copy.slice(1);
 }
 
 function getCurrentWeatherURL(cityName, apiKey) {
