@@ -64,26 +64,31 @@ function getFiveDayForecast(cityName, apiKey) {
     })
     .then(function(days){
       console.log(days);
-      for (day of days.list) {
-        if(currentDateMilliseconds > day.dt) {
-          weatherObj.currentDay = day;
-        } else {
-          let listDate = new Date(day.dt_txt);
-          if (listDate.getHours() === 12
-            && listDate.getDate() != currentDate.getDate()) {
-            weatherObj.next5Days.push(day);
+      if (days.cod != 200) {
+          showSearchError(properlyCapitalize(days.message));
+      } else {
+        for (day of days.list) {
+          if(currentDateMilliseconds > day.dt) {
+            weatherObj.currentDay = day;
+          } else {
+            let listDate = new Date(day.dt_txt);
+            if (listDate.getHours() === 12
+              && listDate.getDate() != currentDate.getDate()) {
+              weatherObj.next5Days.push(day);
+            }
           }
         }
+        if (Object.keys(weatherObj.currentDay).length === 0) {
+          weatherObj.currentDay = days.list[0];
+        }
+        if (weatherObj.next5Days.length < 5) {
+          weatherObj.next5Days.push(days.list[days.list.length - 1]);
+        }
+        weatherObj.coord.lat = days.city.coord.lat;
+        weatherObj.coord.lon = days.city.coord.lon;
+        console.log(weatherObj);
+        getUVIndex(weatherObj, apiKey);
       }
-      if (Object.keys(weatherObj.currentDay).length === 0) {
-        weatherObj.currentDay = days.list[0];
-      }
-      if (weatherObj.next5Days.length < 5) {
-        weatherObj.next5Days.push(days.list[39]);
-      }
-      weatherObj.coord.lat = days.city.coord.lat;
-      weatherObj.coord.lon = days.city.coord.lon;
-      getUVIndex(weatherObj, apiKey);
     });
 }
 
