@@ -68,6 +68,7 @@ function getCurrentWeather(cityName, apiKey) {
     },
     cityName: properlyCapitalize(cityName),
     icon: '',
+    description: '',
     temp: '',
     humidity: '',
     windSpeed: '',
@@ -86,6 +87,7 @@ function getCurrentWeather(cityName, apiKey) {
         weatherObj.coord.lon = data.coord.lon;
         weatherObj.coord.lat = data.coord.lat;
         weatherObj.icon = data.weather[0].icon;
+        weatherObj.description = data.weather[0].description;
         weatherObj.temp = data.main.temp;
         weatherObj.humidity = data.main.humidity;
         weatherObj.windSpeed = data.wind.speed;
