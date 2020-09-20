@@ -19,7 +19,8 @@ function submitSearch(event) {
 
 function getUserInput() {
   let userInput = document.getElementById('city-name').value;
-  userInput = userInput.replace(/\s/g,'');
+  userInput = userInput.replace(/\s+/g,' ');
+  userInput = userInput.trim();
   return userInput;
 }
 
@@ -53,7 +54,7 @@ function getFiveDayForecast(cityName, apiKey) {
       if (days.cod != 200) {
           showSearchError(properlyCapitalize(days.message));
       } else {
-        const weatherObj = getWeatherObject(cityName,
+        const weatherObj = getWeatherObject(days.city.name,
           days.list,
           days.city.coord.lat, days.city.coord.lon);
         console.log(weatherObj);
@@ -68,7 +69,7 @@ function getWeatherObject(cityName, dayList, lat, lon) {
 
   let weatherObj =
   {
-    cityName: properlyCapitalize(cityName),
+    cityName: cityName,
     coord:
     {
       lat: '',
