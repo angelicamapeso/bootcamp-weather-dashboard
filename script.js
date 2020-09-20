@@ -57,6 +57,22 @@ function startGettingWeatherData(cityName) {
 function getCurrentWeather(cityName, apiKey) {
   const currentWeatherURL = getCurrentWeatherURL(cityName, apiKey);
 
+  //object to pass data between fetches
+  //once all fetches are done, this object will be
+  //used to display data
+  let weatherObj =
+  {
+    coord: {
+      lon: '',
+      lat: '',
+    },
+    icon: '',
+    temp: '',
+    humidity: '',
+    windSpeed: '',
+    uvIndex: '',
+  };
+
   fetch(currentWeatherURL)
     .then(function(response) {
       return response.json();
@@ -67,7 +83,13 @@ function getCurrentWeather(cityName, apiKey) {
         message = message.charAt(0).toUpperCase() + message.slice(1);
         showSearchError(message);
       } else {
-        console.log(data);
+        weatherObj.coord.lon = data.coord.lon;
+        weatherObj.coord.lat = data.coord.lat;
+        weatherObj.icon = data.weather[0].icon;
+        weatherObj.temp = data.main.temp;
+        weatherObj.humidity = data.main.humidity;
+        weatherObj.windSpeed = data.wind.speed;
+
       }
     });
 }
