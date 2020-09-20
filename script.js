@@ -1,6 +1,9 @@
 //Get information on page load
 window.onload = function() {
   const localWeatherObj = getWeatherObjFromLocal();
+  if (localWeatherObj) {
+    displayInformation(localWeatherObj);
+  }
 }
 
 //Search button event listener
@@ -124,8 +127,8 @@ function getUVIndex(weatherObj, apiKey) {
         uvIndex: data.value,
         color: getUVIndexColor(data.value),
       };
-      displayInformation(weatherData, weatherData.cityName);
       saveWeatherObjToLocal(weatherObj);
+      displayInformation(weatherData);
     });
 }
 
@@ -158,8 +161,8 @@ function getUVIndexURL(lat, lon, apiKey) {
 }
 
 /***** Display functions *****/
-function displayInformation(weatherObj, cityName) {
-  displayOverviewCard(weatherObj.currentDay , cityName);
+function displayInformation(weatherObj) {
+  displayOverviewCard(weatherObj.currentDay , weatherObj.cityName);
   displayFiveDayForecast(weatherObj.next5Days);
 }
 
