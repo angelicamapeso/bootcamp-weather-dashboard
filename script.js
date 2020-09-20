@@ -123,7 +123,7 @@ function getUVIndex(weatherObj, apiKey) {
     })
     .then(function(data){
       currentWeather.uvIndex = data.value;
-      console.log(currentWeather);
+      displayOverviewCard(weatherObj);
     });
 }
 
@@ -132,6 +132,23 @@ function getUVIndexURL(lat, lon, apiKey) {
    + `lat=${lat}&lon=${lon}`
    + `&appid=${apiKey}`;
 }
+
+function displayOverviewCard(weatherObj) {
+  const displayDiv = document.getElementById('display-info');
+  const weather = weatherObj;
+  let date = new Date();
+
+  displayDiv.innerHTML =
+    `<div class="card-body">
+      <h2 class="d-inline-block mr-3">${weather.cityName} (${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()})</h2>
+      <img class="d-inline-block" src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" alt="${weather.description}">
+      <p>Temperature: ${weather.temp} &#176;F</p>
+      <p>Humidity: ${weather.humidity}&#37;</p>
+      <p>Wind Speed: ${weather.windSpeed} MPH</p>
+      <p>UV Index: <span id="current-uv-index" class="bg-danger py-1 px-2 text-white rounded">${weather.uvIndex}</span></p>
+    </div>`;
+}
+
 
 //on page load
   //grab the search object from local storage
