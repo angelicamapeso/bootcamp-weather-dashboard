@@ -150,8 +150,7 @@ function formatDate(date) {
 }
 
 function properlyCapitalize(str) {
-  let copy = str;
-  copy = copy.toLowerCase();
+  let copy = str.toString().toLowerCase();
   return copy.charAt(0).toUpperCase() + copy.slice(1);
 }
 //on page load
