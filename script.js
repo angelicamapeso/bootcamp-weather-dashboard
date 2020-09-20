@@ -1,3 +1,8 @@
+//Get information on page load
+window.onload = function() {
+  const localWeatherObj = getWeatherObjFromLocal();
+}
+
 //Search button event listener
 document.getElementById('search-city').addEventListener('submit', submitSearch);
 
@@ -204,6 +209,11 @@ function properlyCapitalize(str) {
 /***** Local storage *****/
 function saveWeatherObjToLocal(weatherObj) {
   localStorage.setItem('weatherObj', JSON.stringify(weatherObj));
+}
+
+function getWeatherObjFromLocal() {
+  let weatherObj = localStorage.getItem('weatherObj');
+  return weatherObj ? JSON.parse(weatherObj) : null;
 }
 
 //on page load
