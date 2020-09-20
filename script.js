@@ -108,6 +108,12 @@ function getCurrentWeatherURL(cityName, apiKey) {
     + `&appid=${apiKey}`;
 }
 
+function getUVIndexURL(lat, lon, apiKey) {
+  return 'http://api.openweathermap.org/data/2.5/uvi?'
+   + `lat=${lat}&lon=${lon}`
+   + `&appid=${apiKey}`;
+}
+
 //on page load
   //grab the search object from local storage
   //display the overview info from current (make another fetch)
