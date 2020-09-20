@@ -43,8 +43,29 @@ function startGettingWeatherData(cityName) {
 //returns current day forecast, and next 5 days
 function getFiveDayForecast(cityName, apiKey) {
   const fiveDayForecastURL = getFiveDayForecastURL(cityName, apiKey);
+
+  fetch(fiveDayForecastURL)
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(days){
+      console.log(days);
+      if (days.cod != 200) {
+          showSearchError(properlyCapitalize(days.message));
+      } else {
+        const weatherObj = getWeatherObject(cityName,
+          days.list,
+          days.city.coord.lat, days.city.coord.lon);
+        console.log(weatherObj);
+        getUVIndex(weatherObj, apiKey);
+      }
+    });
+}
+
+function getWeatherObject(cityName, dayList, lat, lon) {
   const currentDate = new Date();
   const currentDateMilliseconds = Math.floor(currentDate.getTime()/1000.0);
+
   let weatherObj =
   {
     cityName: properlyCapitalize(cityName),
@@ -57,38 +78,27 @@ function getFiveDayForecast(cityName, apiKey) {
     next5Days: [],
   };
 
-  fetch(fiveDayForecastURL)
-    .then(function(response){
-      return response.json();
-    })
-    .then(function(days){
-      console.log(days);
-      if (days.cod != 200) {
-          showSearchError(properlyCapitalize(days.message));
-      } else {
-        for (day of days.list) {
-          if(currentDateMilliseconds > day.dt) {
-            weatherObj.currentDay = day;
-          } else {
-            let listDate = new Date(day.dt_txt);
-            if (listDate.getHours() === 12
-              && listDate.getDate() != currentDate.getDate()) {
-              weatherObj.next5Days.push(day);
-            }
-          }
-        }
-        if (Object.keys(weatherObj.currentDay).length === 0) {
-          weatherObj.currentDay = days.list[0];
-        }
-        if (weatherObj.next5Days.length < 5) {
-          weatherObj.next5Days.push(days.list[days.list.length - 1]);
-        }
-        weatherObj.coord.lat = days.city.coord.lat;
-        weatherObj.coord.lon = days.city.coord.lon;
-        console.log(weatherObj);
-        getUVIndex(weatherObj, apiKey);
+  for (day of dayList) {
+    if(currentDateMilliseconds > day.dt) {
+      weatherObj.currentDay = day;
+    } else {
+      let listDate = new Date(day.dt_txt);
+      if (listDate.getHours() === 12
+        && listDate.getDate() != currentDate.getDate()) {
+        weatherObj.next5Days.push(day);
       }
-    });
+    }
+  }
+  if (Object.keys(weatherObj.currentDay).length === 0) {
+    weatherObj.currentDay = dayList[0];
+  }
+  if (weatherObj.next5Days.length < 5) {
+    weatherObj.next5Days.push(dayList[dayList.length - 1]);
+  }
+  weatherObj.coord.lat = lat;
+  weatherObj.coord.lon = lon;
+
+  return weatherObj;
 }
 
 //get uv index of the current day
