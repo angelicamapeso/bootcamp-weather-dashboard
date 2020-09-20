@@ -1,4 +1,4 @@
-//Get information on page load
+//Get and display information on page load
 window.onload = function() {
   const localWeatherObj = getWeatherObjFromLocal();
   if (localWeatherObj) {
