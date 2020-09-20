@@ -45,7 +45,6 @@ function getFiveDayForecast(cityName, apiKey) {
   const fiveDayForecastURL = getFiveDayForecastURL(cityName, apiKey);
   const currentDate = new Date();
   const currentDateMilliseconds = Math.floor(currentDate.getTime()/1000.0);
-  console.log(currentDate);
   let weatherObj =
   {
     cityName: properlyCapitalize(cityName),
