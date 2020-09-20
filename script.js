@@ -30,25 +30,7 @@ function showSearchError(message) {
   document.getElementById('city-name').classList.add('border-danger');
   document.getElementById('error').textContent = message;
 }
-//fetch the data
-  //error if city could not be found
-  
-  //if city can be found and data retrieved
-  //display city in search history 
-    //Ensure that first letter is capitalized
-  //display data in overview card
-  //display data in 5 day forecast
-  
 
-  //save search term in object (only if success!)
-    //properties:
-      //current
-      //search history[]
-
-//fetch data
-  //fetch current data
-  //fetch 5 day
-  //fetch uv index
 function startGettingWeatherData(cityName) {
   const apiKey = '8364edf40aaaa47bca43e4b4901faf72';
   getFiveDayForecast(cityName, apiKey);
