@@ -111,10 +111,10 @@ function getCurrentWeatherURL(cityName, apiKey) {
 }
 
 function getUVIndex(weatherObj, apiKey) {
-  let currentWeather = weatherObj;
+  const weatherData = weatherObj;
   const uvIndexURL = getUVIndexURL(
-    currentWeather.coord.lat,
-    currentWeather.coord.lon,
+    weatherObj.coord.lat,
+    weatherObj.coord.lon,
     apiKey);
 
   fetch(uvIndexURL)
@@ -122,8 +122,9 @@ function getUVIndex(weatherObj, apiKey) {
       return response.json();
     })
     .then(function(data){
-      currentWeather.uvIndex = data.value;
-      displayOverviewCard(weatherObj);
+      weatherData['uvIndex'] = data.value;
+      console.log(weatherData);
+      // displayOverviewCard(weatherObj);
     });
 }
 
@@ -190,6 +191,7 @@ function getFiveDayForecast(cityName, apiKey) {
       }
       weatherObj.coord.lat = days.city.coord.lat;
       weatherObj.coord.lon = days.city.coord.lon;
+      getUVIndex(weatherObj, apiKey);
     });
 }
 
