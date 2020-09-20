@@ -54,60 +54,10 @@ function startGettingWeatherData(cityName) {
   getFiveDayForecast(cityName, apiKey);
 }
 
-function getCurrentWeather(cityName, apiKey) {
-  const currentWeatherURL = getCurrentWeatherURL(cityName, apiKey);
-
-  //object to pass data between fetches
-  //once all fetches are done, this object will be
-  //used to display data
-  let weatherObj =
-  {
-    coord: {
-      lon: '',
-      lat: '',
-    },
-    cityName: properlyCapitalize(cityName),
-    icon: '',
-    description: '',
-    temp: '',
-    humidity: '',
-    windSpeed: '',
-    uvIndex: '',
-  };
-
-  fetch(currentWeatherURL)
-    .then(function(response) {
-      return response.json();
-    })
-    .then(function(data){
-      if (data.hasOwnProperty('message') && data.hasOwnProperty('cod')) {
-        let message = properlyCapitalize(data.message);
-        showSearchError(message);
-      } else {
-        weatherObj.coord.lon = data.coord.lon;
-        weatherObj.coord.lat = data.coord.lat;
-        weatherObj.icon = data.weather[0].icon;
-        weatherObj.description = data.weather[0].description;
-        weatherObj.temp = data.main.temp;
-        weatherObj.humidity = data.main.humidity;
-        weatherObj.windSpeed = data.wind.speed;
-
-        getUVIndex(weatherObj, apiKey);
-      }
-    });
-}
-
 function properlyCapitalize(str) {
   let copy = str;
   copy = copy.toLowerCase();
   return copy.charAt(0).toUpperCase() + copy.slice(1);
-}
-
-function getCurrentWeatherURL(cityName, apiKey) {
-  return 'https://api.openweathermap.org/data/2.5/weather?'
-    + `q=${cityName}`
-    + '&units=imperial'
-    + `&appid=${apiKey}`;
 }
 
 function getUVIndex(weatherObj, apiKey) {
