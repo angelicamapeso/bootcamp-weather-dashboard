@@ -133,19 +133,17 @@ function getUVIndexURL(lat, lon, apiKey) {
    + `&appid=${apiKey}`;
 }
 
-function displayOverviewCard(weatherObj) {
+function displayOverviewCard(currentDay, cityName) {
   const displayDiv = document.getElementById('display-info');
-  const weather = weatherObj;
-  let date = new Date();
 
   displayDiv.innerHTML =
     `<div class="card-body">
-      <h2 class="d-inline-block mr-3">${weather.cityName} (${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()})</h2>
-      <img class="d-inline-block" src="http://openweathermap.org/img/wn/${weather.icon}@2x.png" alt="${weather.description}">
-      <p>Temperature: ${weather.temp} &#176;F</p>
-      <p>Humidity: ${weather.humidity}&#37;</p>
-      <p>Wind Speed: ${weather.windSpeed} MPH</p>
-      <p>UV Index: <span id="current-uv-index" class="bg-danger py-1 px-2 text-white rounded">${weather.uvIndex}</span></p>
+      <h2 class="d-inline-block mr-3">${cityName} ${formatDate(currentDay.dt_txt)}</h2>
+      <img class="d-inline-block" src="http://openweathermap.org/img/wn/${currentDay.weather[0].icon}@2x.png" alt="${currentDay.weather[0].description}">
+      <p>Temperature: ${currentDay.main.temp} &#176;F</p>
+      <p>Humidity: ${currentDay.main.humidity}&#37;</p>
+      <p>Wind Speed: ${currentDay.currentDay} MPH</p>
+      <p>UV Index: <span id="current-uv-index" class="bg-danger py-1 px-2 text-white rounded">${currentDay.uvIndex}</span></p>
     </div>`;
 }
 
