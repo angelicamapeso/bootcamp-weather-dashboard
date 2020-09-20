@@ -124,6 +124,7 @@ function getUVIndex(weatherObj, apiKey) {
     .then(function(data){
       weatherData.currentDay['uvIndex'] = data.value;
 
+      displayInformation(weatherData, weatherData.cityName);
     });
 }
 
@@ -131,6 +132,10 @@ function getUVIndexURL(lat, lon, apiKey) {
   return 'http://api.openweathermap.org/data/2.5/uvi?'
    + `lat=${lat}&lon=${lon}`
    + `&appid=${apiKey}`;
+}
+
+function displayInformation(weatherObj, cityName) {
+  displayOverviewCard(weatherObj.currentDay , cityName);
 }
 
 function displayOverviewCard(currentDay, cityName) {
