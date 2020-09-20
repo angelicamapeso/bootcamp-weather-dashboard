@@ -164,6 +164,7 @@ function getFiveDayForecast(cityName, apiKey) {
   console.log(currentDate);
   let weatherObj =
   {
+    cityName: properlyCapitalize(cityName),
     coord:
     {
       lat: '',
