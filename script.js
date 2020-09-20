@@ -120,6 +120,7 @@ function getUVIndex(weatherObj, apiKey) {
         color: getUVIndexColor(data.value),
       };
       displayInformation(weatherData, weatherData.cityName);
+      saveWeatherObjToLocal(weatherObj);
     });
 }
 
@@ -199,6 +200,12 @@ function properlyCapitalize(str) {
   let copy = str.toString().toLowerCase();
   return copy.charAt(0).toUpperCase() + copy.slice(1);
 }
+
+/***** Local storage *****/
+function saveWeatherObjToLocal(weatherObj) {
+  localStorage.setItem('weatherObj', JSON.stringify(weatherObj));
+}
+
 //on page load
   //grab the search object from local storage
   //display the overview info from current (make another fetch)
