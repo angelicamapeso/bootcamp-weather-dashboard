@@ -108,6 +108,23 @@ function getCurrentWeatherURL(cityName, apiKey) {
     + `&appid=${apiKey}`;
 }
 
+function getUVIndex(weatherObj, apiKey) {
+  let currentWeather = weatherObj;
+  const uvIndexURL = getUVIndexURL(
+    currentWeather.coord.lat,
+    currentWeather.coord.lon,
+    apiKey);
+
+  fetch(uvIndexURL)
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(data){
+      currentWeather.uvIndex = data.value;
+      console.log(currentWeather);
+    });
+}
+
 function getUVIndexURL(lat, lon, apiKey) {
   return 'http://api.openweathermap.org/data/2.5/uvi?'
    + `lat=${lat}&lon=${lon}`
