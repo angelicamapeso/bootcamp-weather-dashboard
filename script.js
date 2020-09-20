@@ -114,8 +114,11 @@ function getUVIndex(weatherObj, apiKey) {
       return response.json();
     })
     .then(function(data){
-      weatherData.currentDay['uvIndex'] = data.value;
-
+      weatherData.currentDay['uvi'] =
+      {
+        uvIndex: data.value,
+        color: getUVIndexColor(data.value),
+      };
       displayInformation(weatherData, weatherData.cityName);
     });
 }
@@ -163,7 +166,7 @@ function displayOverviewCard(currentDay, cityName) {
       <p>Temperature: ${currentDay.main.temp} &#176;F</p>
       <p>Humidity: ${currentDay.main.humidity}&#37;</p>
       <p>Wind Speed: ${currentDay.wind.speed} MPH</p>
-      <p>UV Index: <span id="current-uv-index" class="bg-danger py-1 px-2 text-white rounded">${currentDay.uvIndex}</span></p>
+      <p>UV Index: <span id="current-uv-index" class="${currentDay.uvi.color} py-1 px-2 rounded">${currentDay.uvi.uvIndex}</span></p>
     </div>`;
 }
 
