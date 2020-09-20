@@ -149,6 +149,11 @@ function displayOverviewCard(weatherObj) {
     </div>`;
 }
 
+function getFiveDayForecastURL(cityName, apiKey) {
+  return 'http://api.openweathermap.org/data/2.5/forecast?'
+   + `q=${cityName}`
+   + `&appid=${apiKey}`;
+}
 
 //on page load
   //grab the search object from local storage
