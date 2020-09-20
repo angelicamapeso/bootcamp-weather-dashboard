@@ -56,7 +56,6 @@ function startGettingWeatherData(cityName) {
 
 function getCurrentWeather(cityName, apiKey) {
   const currentWeatherURL = getCurrentWeatherURL(cityName, apiKey);
-  let weatherObj = {};
 
   fetch(currentWeatherURL)
     .then(function(response) {
