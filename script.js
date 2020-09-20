@@ -147,7 +147,7 @@ function displayOverviewCard(currentDay, cityName) {
       <img class="d-inline-block" src="http://openweathermap.org/img/wn/${currentDay.weather[0].icon}@2x.png" alt="${currentDay.weather[0].description}">
       <p>Temperature: ${currentDay.main.temp} &#176;F</p>
       <p>Humidity: ${currentDay.main.humidity}&#37;</p>
-      <p>Wind Speed: ${currentDay.currentDay} MPH</p>
+      <p>Wind Speed: ${currentDay.wind.speed} MPH</p>
       <p>UV Index: <span id="current-uv-index" class="bg-danger py-1 px-2 text-white rounded">${currentDay.uvIndex}</span></p>
     </div>`;
 }
