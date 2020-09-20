@@ -206,6 +206,7 @@ function getFiveDayForecast(cityName, apiKey) {
 function getFiveDayForecastURL(cityName, apiKey) {
   return 'http://api.openweathermap.org/data/2.5/forecast?'
    + `q=${cityName}`
+   + '&units=imperial'
    + `&appid=${apiKey}`;
 }
 
