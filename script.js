@@ -8,7 +8,7 @@ function submitSearch(event) {
   const userInput = getUserInput();
 
   if (userInput) {
-    console.log('You wrote something!')
+    getWeatherData(userInput);
   } else {
     document.getElementById('city-name').value = '';
     showSearchError('Please enter a city name');
@@ -49,6 +49,27 @@ function showSearchError(message) {
   //fetch current data
   //fetch 5 day
   //fetch uv index
+function getWeatherData(cityName) {
+  const apiKey = '8364edf40aaaa47bca43e4b4901faf72';
+
+  let currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?';
+  currentWeatherURL += `q=${cityName}`;
+  currentWeatherURL += `&appid=${apiKey}`;
+
+  fetch(currentWeatherURL)
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data){
+      if (data.hasOwnProperty('message') && data.hasOwnProperty('cod')) {
+        let message = data.message;
+        message = message.charAt(0).toUpperCase() + message.slice(1);
+        showSearchError(message);
+      } else {
+        console.log(data);
+      }
+    });
+}
 
 //on page load
   //grab the search object from local storage
