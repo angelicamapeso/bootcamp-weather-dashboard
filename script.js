@@ -149,6 +149,50 @@ function displayOverviewCard(weatherObj) {
     </div>`;
 }
 
+function getFiveDayForecast(cityName, apiKey) {
+  const fiveDayForecastURL = getFiveDayForecastURL(cityName, apiKey);
+  const currentDate = new Date();
+  const currentDateMilliseconds = Math.floor(currentDate.getTime()/1000.0);
+  console.log(currentDate);
+  let weatherObj =
+  {
+    coord:
+    {
+      lat: '',
+      lon: '',
+    },
+    currentDay: {},
+    next5Days: [],
+  };
+
+  fetch(fiveDayForecastURL)
+    .then(function(response){
+      return response.json();
+    })
+    .then(function(days){
+      console.log(days);
+      for (day of days.list) {
+        if(currentDateMilliseconds > day.dt) {
+          weatherObj.currentDay = day;
+        } else {
+          let listDate = new Date(day.dt_txt);
+          if (listDate.getHours() === 12
+            && listDate.getDate() != currentDate.getDate()) {
+            weatherObj.next5Days.push(day);
+          }
+        }
+      }
+      if (Object.keys(weatherObj.currentDay).length === 0) {
+        weatherObj.currentDay = days.list[0];
+      }
+      if (weatherObj.next5Days.length < 5) {
+        weatherObj.next5Days.push(days.list[39]);
+      }
+      weatherObj.coord.lat = days.city.coord.lat;
+      weatherObj.coord.lon = days.city.coord.lon;
+    });
+}
+
 function getFiveDayForecastURL(cityName, apiKey) {
   return 'http://api.openweathermap.org/data/2.5/forecast?'
    + `q=${cityName}`
