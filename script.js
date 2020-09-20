@@ -75,6 +75,7 @@ function getCurrentWeather(cityName, apiKey) {
 function getCurrentWeatherURL(cityName, apiKey) {
   return 'https://api.openweathermap.org/data/2.5/weather?'
     + `q=${cityName}`
+    + '&units=imperial'
     + `&appid=${apiKey}`;
 }
 
