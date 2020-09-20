@@ -51,7 +51,7 @@ function showSearchError(message) {
   //fetch uv index
 function startGettingWeatherData(cityName) {
   const apiKey = '8364edf40aaaa47bca43e4b4901faf72';
-  getCurrentWeather(cityName, apiKey);
+  getFiveDayForecast(cityName, apiKey);
 }
 
 function getCurrentWeather(cityName, apiKey) {
