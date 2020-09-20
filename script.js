@@ -154,6 +154,7 @@ function getUVIndexURL(lat, lon, apiKey) {
 function displayInformation(weatherObj) {
   displayOverviewCard(weatherObj.currentDay , weatherObj.cityName);
   displayFiveDayForecast(weatherObj.next5Days);
+  displayNewSearchEntry(weatherObj.cityName);
 }
 
 function displayOverviewCard(currentDay, cityName) {
@@ -186,6 +187,12 @@ function displayFiveDayForecast(dayList) {
         </div>
       </div>`;
   }
+}
+
+function displayNewSearchEntry(cityName) {
+  const searchHistoryList = document.getElementById('search-history');
+  searchHistoryList.innerHTML += 
+    `<li class="list-group-item search-entry" data-city-name="${cityName}">${cityName}</li>`;
 }
 
 /***** Formatting functions *****/
