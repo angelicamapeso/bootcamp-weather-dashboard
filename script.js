@@ -73,6 +73,12 @@ function getCurrentWeather(cityName, apiKey) {
     });
 }
 
+function getCurrentWeatherURL(cityName, apiKey) {
+  return 'https://api.openweathermap.org/data/2.5/weather?'
+    + `q=${cityName}`
+    + `&appid=${apiKey}`;
+}
+
 //on page load
   //grab the search object from local storage
   //display the overview info from current (make another fetch)
