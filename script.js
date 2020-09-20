@@ -49,12 +49,14 @@ function showSearchError(message) {
   //fetch current data
   //fetch 5 day
   //fetch uv index
-function getWeatherData(cityName) {
+function startGettingWeatherData(cityName) {
   const apiKey = '8364edf40aaaa47bca43e4b4901faf72';
+  getCurrentWeather(cityName, apiKey);
+}
 
-  let currentWeatherURL = 'https://api.openweathermap.org/data/2.5/weather?';
-  currentWeatherURL += `q=${cityName}`;
-  currentWeatherURL += `&appid=${apiKey}`;
+function getCurrentWeather(cityName, apiKey) {
+  const currentWeatherURL = getCurrentWeatherURL(cityName, apiKey);
+  let weatherObj = {};
 
   fetch(currentWeatherURL)
     .then(function(response) {
