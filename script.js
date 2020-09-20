@@ -149,6 +149,11 @@ function displayOverviewCard(weatherObj) {
     </div>`;
 }
 
+function formatDate(date) {
+  const newDate = new Date(date);
+  return `(${newDate.getMonth() + 1}/${newDate.getDate()}/${newDate.getFullYear()})`;
+}
+
 function getFiveDayForecast(cityName, apiKey) {
   const fiveDayForecastURL = getFiveDayForecastURL(cityName, apiKey);
   const currentDate = new Date();
