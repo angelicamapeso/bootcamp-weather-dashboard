@@ -154,6 +154,7 @@ function getUVIndexURL(lat, lon, apiKey) {
 /***** Display functions *****/
 function displayInformation(weatherObj, cityName) {
   displayOverviewCard(weatherObj.currentDay , cityName);
+  displayFiveDayForecast(weatherObj.next5Days);
 }
 
 function displayOverviewCard(currentDay, cityName) {
@@ -168,6 +169,24 @@ function displayOverviewCard(currentDay, cityName) {
       <p>Wind Speed: ${currentDay.wind.speed} MPH</p>
       <p>UV Index: <span id="current-uv-index" class="${currentDay.uvi.color} py-1 px-2 rounded">${currentDay.uvi.uvIndex}</span></p>
     </div>`;
+}
+
+function displayFiveDayForecast(dayList) {
+  const fiveDayForecastContainer = document.getElementById('five-day-forecast-cards');
+  fiveDayForecastContainer.innerHTML = '';
+  for (day of dayList) {
+    fiveDayForecastContainer.innerHTML +=
+      `<div class="col-lg" id="five-day-weather-card">
+        <div class="card bg-primary text-white">
+          <div class="card-body d-flex flex-column justify-content-center align-items-center">
+            <p class="h5">${formatDate(day.dt_txt)}</p>
+            <img class="mb-3" src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="${day.weather[0].description}">
+            <p>Temp: ${day.main.temp} &#176;F</p>
+            <p>Humidity: ${day.main.humidity}&#37;</p>
+          </div>
+        </div>
+      </div>`;
+  }
 }
 
 /***** Formatting functions *****/
