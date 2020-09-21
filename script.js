@@ -234,14 +234,14 @@ function processOneCallData(data, weatherData) {
 
 //getting URL queries
 function getCurrentWeatherURL(cityName) {
-  return 'http://api.openweathermap.org/data/2.5/weather?'
+  return 'https://api.openweathermap.org/data/2.5/weather?'
    + `q=${cityName}`
    + '&units=imperial'
    + `&appid=${API_KEY}`;
 }
 
 function getOneCallURL(lat, lon) {
-  return 'http://api.openweathermap.org/data/2.5/onecall?'
+  return 'https://api.openweathermap.org/data/2.5/onecall?'
   + `lat=${lat}`
   + `&lon=${lon}`
   + '&units=imperial'
@@ -272,7 +272,7 @@ function displayOverviewCard(currentDay, cityName) {
           <div class="card-body">
             <div class="card-body" id="city-info" data-city="${cityName}">
               <h2 class="d-inline-block mr-3">${cityName} ${formatDate(currentDay.date)}</h2>
-              <img class="d-inline-block" src="http://openweathermap.org/img/wn/${currentDay.icon.name}@2x.png" alt="${currentDay.icon.description}">
+              <img class="d-inline-block" src="https://openweathermap.org/img/wn/${currentDay.icon.name}@2x.png" alt="${currentDay.icon.description}">
               <p>Temperature: ${currentDay.temp} &#176;F</p>
               <p>Humidity: ${currentDay.humidity}&#37;</p>
               <p>Wind Speed: ${currentDay.windSpeed} MPH</p>
@@ -301,7 +301,7 @@ function displayFiveDayForecast(dayList) {
         <div class="card bg-primary text-white">
           <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <p class="h5">${formatDate(day.date)}</p>
-            <img class="mb-3" src="http://openweathermap.org/img/wn/${day.icon.name}@2x.png" alt="${day.icon.description}">
+            <img class="mb-3" src="https://openweathermap.org/img/wn/${day.icon.name}@2x.png" alt="${day.icon.description}">
             <p>Temp: ${day.temp} &#176;F</p>
             <p>Humidity: ${day.humidity}&#37;</p>
           </div>
