@@ -277,6 +277,14 @@ function displayFiveDayForecast(dayList) {
 
 function displayNewSearchEntry(cityName) {
   const searchHistoryList = document.getElementById('search-history');
+  const searchHistoryItems = searchHistoryList.children;
+  //keep from adding duplicates
+  for (item of searchHistoryItems) {
+    if (item.dataset.cityName === cityName) {
+      return;
+    }
+  }
+  //add if duplicate not found
   searchHistoryList.innerHTML += 
     `<li class="list-group-item search-entry" data-city-name="${cityName}">${cityName}</li>`;
 }
