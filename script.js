@@ -101,7 +101,8 @@ function getWeatherObject(cityName, dayList, lat, lon) {
 
 //get uv index of the current day
 function getUVIndex(weatherObj, apiKey) {
-  const weatherData = weatherObj;
+  //JSON to create a deep copy of the weatherObj since values are changing
+  const weatherData = JSON.parse(JSON.stringify(weatherObj));
   const uvIndexURL = getUVIndexURL(
     weatherObj.coord.lat,
     weatherObj.coord.lon,
