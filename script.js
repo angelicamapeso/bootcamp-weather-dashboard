@@ -137,6 +137,15 @@ window.onload = function() {
 
 //Search button event listener
 document.getElementById('search-city').addEventListener('submit', submitSearch);
+//Search history event listener
+document.getElementById('search-history').addEventListener('click', function(event){
+  event.preventDefault();
+
+  if (event.target.matches('.search-entry')) {
+    startGettingWeatherData(event.target.dataset.cityName);
+  }
+});
+
 
 /***** Handling user input *****/
 //when search submitted
