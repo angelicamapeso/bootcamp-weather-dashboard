@@ -106,7 +106,6 @@ class WeatherData {
     lat: '',
     lon: '',
   };
-
   #currentDay;
   #nextFiveDays = [];
 
@@ -119,7 +118,17 @@ class WeatherData {
   //setters
   setCurrentDay(currentDay) {
     this.#currentDay = currentDay;
-    return this;
+  }
+
+  //getters
+  getCityName() {
+    return this.#city.cityName;
+  }
+  getCurrentDay() {
+    return this.#currentDay;
+  }
+  getNextFiveDays() {
+    return this.#nextFiveDays;
   }
 
   //append to nextFiveDays
