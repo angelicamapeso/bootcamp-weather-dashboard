@@ -290,6 +290,12 @@ function getCurrentWeatherURL(cityName) {
    + `&appid=${API_KEY}`;
 }
 
+function getOneCallURL(lat, lon) {
+  return 'http://api.openweathermap.org/data/2.5/onecall?'
+  + `lat=${lat}`
+  + `&lon=${lon}`
+  + '&units=imperial'
+  + `&appid=${API_KEY}`;
 }
 
 /***** Display functions *****/
