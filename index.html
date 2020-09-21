@@ -48,7 +48,7 @@
               <input type="text" class="form-control w-75" id="city-name">
               <button type="submit" class="btn btn-primary" id="search"><i class="fas fa-search"></i></button>
             </div>
-            <p class="text-danger" id="error">Sample error message</p>
+            <p class="text-danger" id="error"></p>
           </form>
           <!--Search history-->
           <div class="card">
@@ -56,7 +56,6 @@
               Search history
             </div>
             <ul class="list-group list-group-flush" id="search-history">
-              <li class="list-group-item">Test</li>
             </ul>
           </div>
         </div>
@@ -65,14 +64,6 @@
           <div class="row mb-4">
             <div class="col">
               <div class="card" id="display-info">
-                <div class="card-body">
-                  <h2 class="d-inline-block mr-3" id="city-name">Atlanta <span id="current-date">(8/15/2019)</span></h2>
-                  <img class="d-inline-block" src="https://place-hold.it/100" alt="Forecast icon">
-                  <p>Temperature: <span id="current-temp">90.0</span> &#176;F</p>
-                  <p>Humidity: <span id="current-humidity">41</span> &#37;</p>
-                  <p>Wind Speed: <span id="current-wind-speed">4.7</span> MPH</p>
-                  <p>UV Index: <span id="current-uv-index" class="bg-danger py-1 px-2 text-white rounded">9.49</span></p>
-                </div>
               </div>
             </div>
           </div>
@@ -81,16 +72,6 @@
             <div class="col">
               <h3>5-Day Forecast:</h3>
               <div class="row" id="five-day-forecast-cards">
-                <div class="col">
-                  <div class="card bg-primary text-white">
-                    <div class="card-body">
-                      <p class="h4" id="five-day-forecast-date">8/16/2019</p>
-                      <img class="mb-3" src="https://place-hold.it/100" id="five-day-forecast-image" alt="sun">
-                      <p>Temp: <span id="five-day-forecast-temp">86.4</span> &#176;F</p>
-                      <p>Humidity: <span id="five-day-forecast-humidity">43</span>&#37;</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
