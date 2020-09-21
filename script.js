@@ -89,9 +89,7 @@ function getWeatherObject(cityName, dayList, lat, lon) {
   dayList.forEach(function(day, index) {
     if (index === 0) {
       weatherObj.currentDay = day;
-    } 
-    //subtracting 1 since indexes start at 0
-    else if (index % (8 - 1) === 0) {
+    } else if (index % 8 === 0) {
       weatherObj.next5Days.push(day);
     }
   });
