@@ -113,17 +113,18 @@ WeatherData.prototype.setDays = function (dayList) {
   dayList.forEach(function(day, index) {
     if (index === 0) {
       let currentDay = new CurrentWeather(
-        day.main.temp,
-        day.main.humidity,
-        day.wind.speed)
+        day.temp.day,
+        day.humidity,
+        day.wind_speed)
         .setDate(day.dt)
         .setIconName(day.weather[0].icon)
-        .setIconDescription(day.weather[0].description);
+        .setIconDescription(day.weather[0].description)
+        .setUV(day.uvi);
       this.setCurrentDay(currentDay);
-    } else if (index % 8 === 0 || index === listLength - 1) {
+    } else if (index <= 5) {
       let nextFiveDay = new DailyWeather(
-        day.main.temp,
-        day.main.humidity)
+        day.temp.day,
+        day.humidity)
         .setDate(day.dt)
         .setIconName(day.weather[0].icon)
         .setIconDescription(day.weather[0].description);
