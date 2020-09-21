@@ -212,6 +212,14 @@ function getFiveDayForecast(cityName, API_KEY) {
     });
 }
 
+//general function to fetch data
+function fetchData(queryURL, nextAction) {
+  fetch(queryURL)
+    .then(function(response){
+      return response.json();
+    }).then(nextAction);
+}
+
 //get uv index of the current day
 function getUVIndex(weatherObj, API_KEY) {
   //JSON to create a deep copy of the weatherObj since values are changing
