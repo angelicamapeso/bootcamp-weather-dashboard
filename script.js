@@ -14,11 +14,9 @@ class DailyWeather {
   }
 
   //setters
-  setDate(openWeatherDate, timezoneOffset) {
-    //add timezoneOffset to update openWeatherDate time to local time
-    //multiply total by 1000 to get to miliseconds, proper format for UNIX date
-    const formattedDate = new Date(openWeatherDate).getTime() + timezoneOffset * 1000;
-    this.#date = new Date(formattedDate);
+  setDate(openWeatherDate) {
+    //date will convert the openWeather date to local time
+    this.#date = new Date(openWeatherDate * 1000);
     return this;
   }
   setIconName(iconName) {
