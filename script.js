@@ -100,6 +100,35 @@ CurrentWeather.prototype.generateUVIndexColor = function(uvIndex) {
   }
 };
 
+/***** WEATHER DATA CLASS ******/
+class WeatherData {
+  #city = {
+    cityName: '',
+    lat: '',
+    lon: '',
+  };
+
+  #currentDay;
+  #nextFiveDays = [];
+
+  constructor(cityName, lat, lon) {
+    this.#city.cityName = cityName;
+    this.#city.lat = lat;
+    this.#city.lon = lon;
+  }
+
+  //setters
+  setCurrentDay(currentDay) {
+    this.#currentDay = currentDay;
+    return this;
+  }
+
+  //append to nextFiveDays
+  appendToNextFiveDays(day) {
+    this.#nextFiveDays.push(day);
+  }
+}
+
 //Get and display information on page load
 window.onload = function() {
   const localWeatherObj = getWeatherObjFromLocal();
