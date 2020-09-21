@@ -1,8 +1,8 @@
 /***** DAILY WEATHER CLASS******/
 class DailyWeather {
   //Date in unix
-  #date = new Date();
-  #icon = {
+  date = new Date();
+  icon = {
     name: '',
     description: '',
   }
@@ -16,30 +16,30 @@ class DailyWeather {
   //setters
   setDate(openWeatherDate) {
     //date will convert the openWeather date to local time
-    this.#date = new Date(openWeatherDate * 1000);
+    this.date = new Date(openWeatherDate * 1000);
     return this;
   }
   setIconName(iconName) {
     //will use the current time, if time has not been set
     //openweather icons are set for UTC/GMT time, need to update appearance 
     //since there might be a time difference
-    this.#icon.name = iconName.slice(0, iconName.length - 1) + this.generateIconEnding();
+    this.icon.name = iconName.slice(0, iconName.length - 1) + this.generateIconEnding();
     return this;
   }
   setIconDescription(iconDescription) {
-    this.#icon.description = iconDescription;
+    this.icon.description = iconDescription;
     return this;
   }
 
   //getters
   getDate() {
-    return this.#date;
+    return this.date;
   }
   getIconName() {
-    return this.#icon.name;
+    return this.icon.name;
   }
   getIconDescription() {
-    return this.#icon.description;
+    return this.icon.description;
   }
 }
 
@@ -59,7 +59,7 @@ DailyWeather.prototype.getFormattedDate = function() {
 /***** CURRENT WEATHER CLASS******/
 class CurrentWeather extends DailyWeather{
   windSpeed = 0;
-  #uv = {
+  uv = {
     index: 0,
     color: '',
   };
@@ -70,17 +70,17 @@ class CurrentWeather extends DailyWeather{
 
   //setter
   setUV(uvIndex) {
-    this.#uv.index = uvIndex;
-    this.#uv.color = this.generateUVIndexColor(uvIndex);
+    this.uv.index = uvIndex;
+    this.uv.color = this.generateUVIndexColor(uvIndex);
     return this;
   }
 
   //getter
   getUVIndex() {
-    return this.#uv.index;
+    return this.uv.index;
   }
   getUVColor() {
-    return this.#uv.color;
+    return this.uv.color;
   }
 }
 
@@ -101,39 +101,39 @@ CurrentWeather.prototype.generateUVIndexColor = function(uvIndex) {
 
 /***** WEATHER DATA CLASS ******/
 class WeatherData {
-  #city = {
+  city = {
     cityName: '',
     lat: '',
     lon: '',
   };
-  #currentDay;
-  #nextFiveDays = [];
+  currentDay;
+  nextFiveDays = [];
 
   constructor(cityName, lat, lon) {
-    this.#city.cityName = cityName;
-    this.#city.lat = lat;
-    this.#city.lon = lon;
+    this.city.cityName = cityName;
+    this.city.lat = lat;
+    this.city.lon = lon;
   }
 
   //setters
   setCurrentDay(currentDay) {
-    this.#currentDay = currentDay;
+    this.currentDay = currentDay;
   }
 
   //getters
   getCityName() {
-    return this.#city.cityName;
+    return this.city.cityName;
   }
   getCurrentDay() {
-    return this.#currentDay;
+    return this.currentDay;
   }
   getNextFiveDays() {
-    return this.#nextFiveDays;
+    return this.nextFiveDays;
   }
 
   //append to nextFiveDays
   appendToNextFiveDays(day) {
-    this.#nextFiveDays.push(day);
+    this.nextFiveDays.push(day);
   }
 }
 
@@ -327,9 +327,9 @@ function getUVIndexURL(lat, lon, apiKey) {
 
 /***** Display functions *****/
 function displayInformation(weatherObj) {
-  displayOverviewCard(weatherObj.currentDay , weatherObj.cityName);
-  displayFiveDayForecast(weatherObj.next5Days);
-  displayNewSearchEntry(weatherObj.cityName);
+  displayOverviewCard(weatherObj.currentDay, weatherObj.city.cityName);
+  displayFiveDayForecast(weatherObj.nextFiveDays);
+  displayNewSearchEntry(weatherObj.city.cityName);
 }
 
 function displayOverviewCard(currentDay, cityName) {
@@ -337,12 +337,12 @@ function displayOverviewCard(currentDay, cityName) {
 
   displayDiv.innerHTML =
     `<div class="card-body">
-      <h2 class="d-inline-block mr-3">${cityName} ${formatDate(currentDay.dt_txt)}</h2>
-      <img class="d-inline-block" src="http://openweathermap.org/img/wn/${currentDay.weather[0].icon}@2x.png" alt="${currentDay.weather[0].description}">
-      <p>Temperature: ${currentDay.main.temp} &#176;F</p>
-      <p>Humidity: ${currentDay.main.humidity}&#37;</p>
-      <p>Wind Speed: ${currentDay.wind.speed} MPH</p>
-      <p>UV Index: <span id="current-uv-index" class="${currentDay.uvi.color} py-1 px-2 rounded">${currentDay.uvi.uvIndex}</span></p>
+      <h2 class="d-inline-block mr-3">${cityName} ${formatDate(currentDay.date)}</h2>
+      <img class="d-inline-block" src="http://openweathermap.org/img/wn/${currentDay.icon.name}@2x.png" alt="${currentDay.icon.description}">
+      <p>Temperature: ${currentDay.temp} &#176;F</p>
+      <p>Humidity: ${currentDay.humidity}&#37;</p>
+      <p>Wind Speed: ${currentDay.windSpeed} MPH</p>
+      <p>UV Index: <span id="current-uv-index" class="${currentDay.uv.color} py-1 px-2 rounded">${currentDay.uv.index}</span></p>
     </div>`;
 }
 
@@ -354,10 +354,10 @@ function displayFiveDayForecast(dayList) {
       `<div class="col-lg" id="five-day-weather-card">
         <div class="card bg-primary text-white">
           <div class="card-body d-flex flex-column justify-content-center align-items-center">
-            <p class="h5">${formatDate(day.dt_txt)}</p>
-            <img class="mb-3" src="http://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="${day.weather[0].description}">
-            <p>Temp: ${day.main.temp} &#176;F</p>
-            <p>Humidity: ${day.main.humidity}&#37;</p>
+            <p class="h5">${formatDate(day.date)}</p>
+            <img class="mb-3" src="http://openweathermap.org/img/wn/${day.icon.name}@2x.png" alt="${day.icon.description}">
+            <p>Temp: ${day.temp} &#176;F</p>
+            <p>Humidity: ${day.humidity}&#37;</p>
           </div>
         </div>
       </div>`;
