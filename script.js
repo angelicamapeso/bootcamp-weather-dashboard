@@ -57,6 +57,49 @@ DailyWeather.prototype.getFormattedDate = function() {
   return `(${this.getDate().getMonth() + 1}/${this.getDate().getDate()}/${this.getDate().getFullYear()})`;
 };
 
+/***** CURRENT WEATHER CLASS******/
+class CurrentWeather extends DailyWeather{
+  windSpeed = 0;
+  #uv = {
+    index: 0,
+    color: '',
+  };
+  constructor(temp, humidity, windSpeed) {
+    super(temp, humidity);
+    this.windSpeed = windSpeed;
+  }
+
+  //setter
+  setUV(uvIndex) {
+    this.#uv.index = uvIndex;
+    this.#uv.color = this.generateUVIndexColor(uvIndex);
+    return this;
+  }
+
+  //getter
+  getUVIndex() {
+    return this.#uv.index;
+  }
+  getUVColor() {
+    return this.#uv.color;
+  }
+}
+
+//required for getting uvIndexColor
+CurrentWeather.prototype.generateUVIndexColor = function(uvIndex) {
+  if (uvIndex <= 2) {
+    return 'bg-secondary text-white';
+  } else if (uvIndex <=5) {
+    return 'bg-dark text-white';
+  } else if (uvIndex <=7) {
+    return 'bg-success text-white';
+  } else if (uvIndex <=10) {
+    return 'bg-warning text-dark';
+  } else {
+    return 'bg-danger text-white';
+  }
+};
+
 //Get and display information on page load
 window.onload = function() {
   const localWeatherObj = getWeatherObjFromLocal();
