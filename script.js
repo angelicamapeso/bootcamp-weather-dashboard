@@ -1,3 +1,62 @@
+/***** DAILY WEATHER CLASS******/
+class DailyWeather {
+  //Date in unix
+  #date = new Date();
+  #icon = {
+    name: '',
+    description: '',
+  }
+  temp = 0;
+  humidity = 0;
+  constructor(temp, humidity) {
+    this.temp = temp;
+    this.humidity = humidity;
+  }
+
+  //setters
+  setDate(openWeatherDate, timezoneOffset) {
+    //add timezoneOffset to update openWeatherDate time to local time
+    //multiply total by 1000 to get to miliseconds, proper format for UNIX date
+    this.#date = new Date((openWeatherDate + -timezoneOffset) * 1000);
+    return this;
+  }
+  setIconName(iconName) {
+    //will use the current time, if time has not been set
+    //openweather icons are set for UTC/GMT time, need to update appearance 
+    //since there might be a time difference
+    this.#icon.name = iconName.slice(0, iconName.length - 1) + this.generateIconEnding();
+    return this;
+  }
+  setIconDescription(iconDescription) {
+    this.#icon.description = iconDescription;
+    return this;
+  }
+
+  //getters
+  getDate() {
+    return this.#date;
+  }
+  getIconName() {
+    return this.#icon.name;
+  }
+  getIconDescription() {
+    return this.#icon.description;
+  }
+}
+
+//gives us icon ending with day or night
+DailyWeather.prototype.generateIconEnding = function() {
+  const hour = this.getDate().getHours();
+  //if hour is between 12AM and 12PM, should be night icon
+  //else, should be day icon
+  return (hour >= 0 && hour < 12) ? 'n' : 'd';
+};
+
+//Function for formatting the date
+DailyWeather.prototype.getFormattedDate = function() {
+  return `(${this.getDate().getMonth() + 1}/${this.getDate().getDate()}/${this.getDate().getFullYear()})`;
+};
+
 //Get and display information on page load
 window.onload = function() {
   const localWeatherObj = getWeatherObjFromLocal();
