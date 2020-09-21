@@ -220,6 +220,22 @@ function fetchData(queryURL, nextAction) {
     }).then(nextAction);
 }
 
+function processCurrentWeatherData(data) {
+  console.log(data);
+  if (data.cod != 200) {
+    showSearchError(properlyCapitalize(data.message));
+  } else {
+    const weatherData = new WeatherData(
+      data.name, 
+      data.coord.lat,
+      data.coord.lon);
+
+    fetchData(getOneCallURL(data.coord.lat, data.coord.lon), function(data) {
+      processOneCallData(data, weatherData);
+    });
+  }
+}
+
 //get uv index of the current day
 function getUVIndex(weatherObj, API_KEY) {
   //JSON to create a deep copy of the weatherObj since values are changing
