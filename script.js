@@ -188,30 +188,6 @@ function startGettingWeatherData(cityName) {
   fetchData(getCurrentWeatherURL(cityName), processCurrentWeatherData);
 }
 
-//returns current day forecast, and next 5 days
-function getFiveDayForecast(cityName, API_KEY) {
-  const fiveDayForecastURL = getFiveDayForecastURL(cityName, API_KEY);
-
-  fetch(fiveDayForecastURL)
-    .then(function(response){
-      return response.json();
-    })
-    .then(function(days){
-      console.log(days);
-      if (days.cod != 200) {
-          showSearchError(properlyCapitalize(days.message));
-      } else {
-        const weatherData = new WeatherData(
-          days.city.name, 
-          days.city.coord.lat,
-          days.city.coord.lon)
-          .setDays(days.list);
-        console.log(weatherData);
-        getUVIndex(weatherData, API_KEY);
-      }
-    });
-}
-
 //general function to fetch data
 function fetchData(queryURL, nextAction) {
   fetch(queryURL)
@@ -220,6 +196,7 @@ function fetchData(queryURL, nextAction) {
     }).then(nextAction);
 }
 
+//processing data functions
 function processCurrentWeatherData(data) {
   console.log(data);
   if (data.cod != 200) {
@@ -244,45 +221,7 @@ function processOneCallData(data, weatherData) {
   saveWeatherObjToLocal(weatherObj);
 }
 
-//get uv index of the current day
-function getUVIndex(weatherObj, API_KEY) {
-  //JSON to create a deep copy of the weatherObj since values are changing
-  const uvIndexURL = getUVIndexURL(
-    weatherObj.city.lat,
-    weatherObj.city.lon,
-    API_KEY);
-
-  fetch(uvIndexURL)
-    .then(function(response){
-      return response.json();
-    })
-    .then(function(data){
-      // weatherData.currentDay['uvi'] =
-      // {
-      //   uvIndex: data.value,
-      //   color: getUVIndexColor(data.value),
-      // };
-      weatherObj.currentDay
-        .setUV(data.value);
-      saveWeatherObjToLocal(weatherObj);
-      displayInformation(weatherObj);
-    });
-}
-
 //getting URL queries
-function getFiveDayForecastURL(cityName) {
-  return 'http://api.openweathermap.org/data/2.5/forecast?'
-   + `q=${cityName}`
-   + '&units=imperial'
-   + `&appid=${API_KEY}`;
-}
-
-function getUVIndexURL(lat, lon) {
-  return 'http://api.openweathermap.org/data/2.5/uvi?'
-   + `lat=${lat}&lon=${lon}`
-   + `&appid=${API_KEY}`;
-}
-
 function getCurrentWeatherURL(cityName) {
   return 'http://api.openweathermap.org/data/2.5/weather?'
    + `q=${cityName}`
@@ -363,22 +302,5 @@ function getWeatherObjFromLocal() {
   let weatherObj = localStorage.getItem('weatherObj');
   return weatherObj ? JSON.parse(weatherObj) : null;
 }
-
-//on page load
-  //grab the search object from local storage
-  //display the overview info from current (make another fetch)
-  //display search history
-  //display 5 day forecast
-
-  //if none
-    //center text- enter city to see weather
-
-//when city clicked in search history
-  //if selection isn't current
-    //make another fetch
-    //display search history
-    //display overview card
-    //display 5 day forecast
-
 
 
