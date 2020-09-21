@@ -128,6 +128,36 @@ class WeatherData {
   }
 }
 
+//A function that will take the list given in object, and pull
+//set the current day, and set the next 5 days
+WeatherData.prototype.setDays = function (dayList) {
+  //5 day forecast returns weather every 3 hours per day
+  //24 hrs in a day, so every 24/3 = 8 entries,
+  //gives you the entry for the next day at the same time
+  dayList.forEach(function(day, index) {
+    if (index === 0) {
+      let currentDay = new CurrentWeather(
+        day.main.temp,
+        day.main.humidity,
+        day.wind.speed)
+        .setDate(day.dt)
+        .setIconName(day.weather[0].icon)
+        .setIconDescription(day.weather[0].description);
+      this.setCurrentDay(currentDay);
+    } //needed to subtract 1 since indexes start at 0 
+    else if (index % (8 - 1) === 0) {
+      let nextFiveDay = new DailyWeather(
+        day.main.temp,
+        day.main.humidity)
+        .setDate(day.dt)
+        .setIconName(day.weather[0].icon)
+        .setIconDescription(day.weather[0].description);
+      this.appendToNextFiveDays(nextFiveDay);
+    }
+  }.bind(this));
+  return this;
+}
+
 /***** PAGE FUNCTIONS ******/
 //Get and display information on page load
 window.onload = function() {
