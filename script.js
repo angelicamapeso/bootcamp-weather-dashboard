@@ -190,7 +190,6 @@ function fetchData(queryURL, nextAction) {
 
 //processing data functions
 function processCurrentWeatherData(data) {
-  console.log(data);
   if (data.cod != 200) {
     showSearchError(properlyCapitalize(data.message));
   } else {
