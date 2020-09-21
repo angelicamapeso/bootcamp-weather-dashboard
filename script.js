@@ -225,7 +225,12 @@ function getFiveDayForecast(cityName, apiKey) {
       } else {
         const weatherObj = getWeatherObject(days.city.name, days.list,
           days.city.coord.lat, days.city.coord.lon);
-        console.log(weatherObj);
+        const weatherData = new WeatherData(
+          days.city.name, 
+          days.city.coord.lat,
+          days.city.coord.lon)
+          .setDays(days.list);
+        console.log(weatherData);
         getUVIndex(weatherObj, apiKey);
       }
     });
