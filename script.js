@@ -181,14 +181,16 @@ function showSearchError(message) {
 }
 
 /***** Getting weather data *****/
+const API_KEY = '8364edf40aaaa47bca43e4b4901faf72';
+
 function startGettingWeatherData(cityName) {
-  const apiKey = '8364edf40aaaa47bca43e4b4901faf72';
-  getFiveDayForecast(cityName, apiKey);
+  // getFiveDayForecast(cityName, API_KEY);
+  fetchData(getCurrentWeatherURL(cityName), processCurrentWeatherData);
 }
 
 //returns current day forecast, and next 5 days
-function getFiveDayForecast(cityName, apiKey) {
-  const fiveDayForecastURL = getFiveDayForecastURL(cityName, apiKey);
+function getFiveDayForecast(cityName, API_KEY) {
+  const fiveDayForecastURL = getFiveDayForecastURL(cityName, API_KEY);
 
   fetch(fiveDayForecastURL)
     .then(function(response){
@@ -205,18 +207,18 @@ function getFiveDayForecast(cityName, apiKey) {
           days.city.coord.lon)
           .setDays(days.list);
         console.log(weatherData);
-        getUVIndex(weatherData, apiKey);
+        getUVIndex(weatherData, API_KEY);
       }
     });
 }
 
 //get uv index of the current day
-function getUVIndex(weatherObj, apiKey) {
+function getUVIndex(weatherObj, API_KEY) {
   //JSON to create a deep copy of the weatherObj since values are changing
   const uvIndexURL = getUVIndexURL(
     weatherObj.city.lat,
     weatherObj.city.lon,
-    apiKey);
+    API_KEY);
 
   fetch(uvIndexURL)
     .then(function(response){
@@ -236,17 +238,18 @@ function getUVIndex(weatherObj, apiKey) {
 }
 
 //getting URL queries
-function getFiveDayForecastURL(cityName, apiKey) {
+function getFiveDayForecastURL(cityName) {
   return 'http://api.openweathermap.org/data/2.5/forecast?'
    + `q=${cityName}`
    + '&units=imperial'
-   + `&appid=${apiKey}`;
+   + `&appid=${API_KEY}`;
 }
 
-function getUVIndexURL(lat, lon, apiKey) {
+function getUVIndexURL(lat, lon) {
   return 'http://api.openweathermap.org/data/2.5/uvi?'
    + `lat=${lat}&lon=${lon}`
-   + `&appid=${apiKey}`;
+   + `&appid=${API_KEY}`;
+}
 }
 
 /***** Display functions *****/
