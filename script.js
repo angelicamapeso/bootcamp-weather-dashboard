@@ -282,6 +282,14 @@ function getUVIndexURL(lat, lon) {
    + `lat=${lat}&lon=${lon}`
    + `&appid=${API_KEY}`;
 }
+
+function getCurrentWeatherURL(cityName) {
+  return 'http://api.openweathermap.org/data/2.5/weather?'
+   + `q=${cityName}`
+   + '&units=imperial'
+   + `&appid=${API_KEY}`;
+}
+
 }
 
 /***** Display functions *****/
