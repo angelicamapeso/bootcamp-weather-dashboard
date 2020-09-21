@@ -242,7 +242,7 @@ function getFiveDayForecast(cityName, apiKey) {
           days.city.coord.lon)
           .setDays(days.list);
         console.log(weatherData);
-        getUVIndex(weatherObj, apiKey);
+        getUVIndex(weatherData, apiKey);
       }
     });
 }
@@ -278,10 +278,9 @@ function getWeatherObject(cityName, dayList, lat, lon, timeOffset) {
 //get uv index of the current day
 function getUVIndex(weatherObj, apiKey) {
   //JSON to create a deep copy of the weatherObj since values are changing
-  const weatherData = JSON.parse(JSON.stringify(weatherObj));
   const uvIndexURL = getUVIndexURL(
-    weatherObj.coord.lat,
-    weatherObj.coord.lon,
+    weatherObj.getLatitude(),
+    weatherObj.getLongitude(),
     apiKey);
 
   fetch(uvIndexURL)
@@ -289,13 +288,16 @@ function getUVIndex(weatherObj, apiKey) {
       return response.json();
     })
     .then(function(data){
-      weatherData.currentDay['uvi'] =
-      {
-        uvIndex: data.value,
-        color: getUVIndexColor(data.value),
-      };
-      saveWeatherObjToLocal(weatherData);
-      displayInformation(weatherData);
+      // weatherData.currentDay['uvi'] =
+      // {
+      //   uvIndex: data.value,
+      //   color: getUVIndexColor(data.value),
+      // };
+      weatherObj
+        .getCurrentDay()
+        .setUV(data.value);
+      saveWeatherObjToLocal(weatherObj);
+      displayInformation(weatherObj);
     });
 }
 
