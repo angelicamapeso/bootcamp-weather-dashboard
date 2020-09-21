@@ -129,6 +129,7 @@ class WeatherData {
   }
 }
 
+/***** PAGE FUNCTIONS ******/
 //Get and display information on page load
 window.onload = function() {
   const localWeatherObj = getWeatherObjFromLocal();
@@ -201,9 +202,10 @@ function getFiveDayForecast(cityName, apiKey) {
     });
 }
 
-function getWeatherObject(cityName, dayList, lat, lon) {
+function getWeatherObject(cityName, dayList, lat, lon, timeOffset) {
   let weatherObj =
   {
+    timezoneOffset: timeOffset,
     cityName: cityName,
     coord:
     {
