@@ -198,8 +198,6 @@ function getFiveDayForecast(cityName, apiKey) {
       if (days.cod != 200) {
           showSearchError(properlyCapitalize(days.message));
       } else {
-        const weatherObj = getWeatherObject(days.city.name, days.list,
-          days.city.coord.lat, days.city.coord.lon);
         const weatherData = new WeatherData(
           days.city.name, 
           days.city.coord.lat,
@@ -209,34 +207,6 @@ function getFiveDayForecast(cityName, apiKey) {
         getUVIndex(weatherData, apiKey);
       }
     });
-}
-
-function getWeatherObject(cityName, dayList, lat, lon, timeOffset) {
-  let weatherObj =
-  {
-    timezoneOffset: timeOffset,
-    cityName: cityName,
-    coord:
-    {
-      lat: lat,
-      lon: lon,
-    },
-    currentDay: {},
-    next5Days: [],
-  };
-
-  //5 day forecast returns weather every 3 hours per day
-  //24 hrs in a day, so every 24/3 = 8 entries,
-  //gives you the entry for the next day at the same time
-  dayList.forEach(function(day, index) {
-    if (index === 0) {
-      weatherObj.currentDay = day;
-    } else if (index % 8 === 0) {
-      weatherObj.next5Days.push(day);
-    }
-  });
-
-  return weatherObj;
 }
 
 //get uv index of the current day
@@ -262,20 +232,6 @@ function getUVIndex(weatherObj, apiKey) {
       saveWeatherObjToLocal(weatherObj);
       displayInformation(weatherObj);
     });
-}
-
-function getUVIndexColor(uvIndex) {
-  if (uvIndex <= 2) {
-    return 'bg-secondary text-white';
-  } else if (uvIndex <=5) {
-    return 'bg-dark text-white';
-  } else if (uvIndex <=7) {
-    return 'bg-success text-white';
-  } else if (uvIndex <=10) {
-    return 'bg-warning text-dark';
-  } else {
-    return 'bg-danger text-white';
-  }
 }
 
 //getting URL queries
