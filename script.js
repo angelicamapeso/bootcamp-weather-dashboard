@@ -118,7 +118,7 @@ function getUVIndex(weatherObj, apiKey) {
         uvIndex: data.value,
         color: getUVIndexColor(data.value),
       };
-      saveWeatherObjToLocal(weatherObj);
+      saveWeatherObjToLocal(weatherData);
       displayInformation(weatherData);
     });
 }
