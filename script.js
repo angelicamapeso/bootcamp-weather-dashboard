@@ -119,6 +119,12 @@ class WeatherData {
   getCityName() {
     return this.city.cityName;
   }
+  getLatitude() {
+    return this.city.lat;
+  }
+  getLongitude() {
+    return this.city.lon;
+  }
   getCurrentDay() {
     return this.currentDay;
   }
