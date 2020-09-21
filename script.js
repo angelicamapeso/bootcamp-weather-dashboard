@@ -30,22 +30,11 @@ class DailyWeather {
     this.icon.description = iconDescription;
     return this;
   }
-
-  //getters
-  getDate() {
-    return this.date;
-  }
-  getIconName() {
-    return this.icon.name;
-  }
-  getIconDescription() {
-    return this.icon.description;
-  }
 }
 
 //gives us icon ending with day or night
 DailyWeather.prototype.generateIconEnding = function() {
-  const hour = this.getDate().getHours();
+  const hour = this.date.getHours();
   //if hour is between 12AM and 12PM, should be night icon
   //else, should be day icon
   return (hour >= 0 && hour < 12) ? 'n' : 'd';
@@ -68,14 +57,6 @@ class CurrentWeather extends DailyWeather{
     this.uv.index = uvIndex;
     this.uv.color = this.generateUVIndexColor(uvIndex);
     return this;
-  }
-
-  //getter
-  getUVIndex() {
-    return this.uv.index;
-  }
-  getUVColor() {
-    return this.uv.color;
   }
 }
 
@@ -113,23 +94,6 @@ class WeatherData {
   //setters
   setCurrentDay(currentDay) {
     this.currentDay = currentDay;
-  }
-
-  //getters
-  getCityName() {
-    return this.city.cityName;
-  }
-  getLatitude() {
-    return this.city.lat;
-  }
-  getLongitude() {
-    return this.city.lon;
-  }
-  getCurrentDay() {
-    return this.currentDay;
-  }
-  getNextFiveDays() {
-    return this.nextFiveDays;
   }
 
   //append to nextFiveDays
@@ -279,8 +243,8 @@ function getWeatherObject(cityName, dayList, lat, lon, timeOffset) {
 function getUVIndex(weatherObj, apiKey) {
   //JSON to create a deep copy of the weatherObj since values are changing
   const uvIndexURL = getUVIndexURL(
-    weatherObj.getLatitude(),
-    weatherObj.getLongitude(),
+    weatherObj.city.lat,
+    weatherObj.city.lon,
     apiKey);
 
   fetch(uvIndexURL)
@@ -293,8 +257,7 @@ function getUVIndex(weatherObj, apiKey) {
       //   uvIndex: data.value,
       //   color: getUVIndexColor(data.value),
       // };
-      weatherObj
-        .getCurrentDay()
+      weatherObj.currentDay
         .setUV(data.value);
       saveWeatherObjToLocal(weatherObj);
       displayInformation(weatherObj);
