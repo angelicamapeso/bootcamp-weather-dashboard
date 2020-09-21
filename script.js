@@ -277,16 +277,23 @@ function displayFiveDayForecast(dayList) {
 
 function displayNewSearchEntry(cityName) {
   const searchHistoryList = document.getElementById('search-history');
+
+  if (!isExistingSearch(cityName, searchHistoryList)) {
+    //add if duplicate not found
+  searchHistoryList.innerHTML += 
+  `<li class="list-group-item search-entry" data-city-name="${cityName}">${cityName}</li>`;
+  }
+}
+
+function isExistingSearch(cityName, searchHistoryList) {
   const searchHistoryItems = searchHistoryList.children;
   //keep from adding duplicates
   for (item of searchHistoryItems) {
     if (item.dataset.cityName === cityName) {
-      return;
+      return true;
     }
   }
-  //add if duplicate not found
-  searchHistoryList.innerHTML += 
-    `<li class="list-group-item search-entry" data-city-name="${cityName}">${cityName}</li>`;
+  return false;
 }
 
 /***** Formatting functions *****/
