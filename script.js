@@ -298,6 +298,7 @@ function displayNewSearchEntry(cityName) {
   }
 }
 
+/***** Condition Checkers *****/
 function isExistingSearch(cityName, searchHistoryList) {
   const searchHistoryItems = searchHistoryList.children;
   //keep from adding duplicates
