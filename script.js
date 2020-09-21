@@ -51,11 +51,6 @@ DailyWeather.prototype.generateIconEnding = function() {
   return (hour >= 0 && hour < 12) ? 'n' : 'd';
 };
 
-//Function for formatting the date
-DailyWeather.prototype.getFormattedDate = function() {
-  return `(${this.getDate().getMonth() + 1}/${this.getDate().getDate()}/${this.getDate().getFullYear()})`;
-};
-
 /***** CURRENT WEATHER CLASS******/
 class CurrentWeather extends DailyWeather{
   windSpeed = 0;
