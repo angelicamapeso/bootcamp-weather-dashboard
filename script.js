@@ -112,15 +112,7 @@ WeatherData.prototype.setDays = function (dayList) {
   console.log(listLength);
   dayList.forEach(function(day, index) {
     if (index === 0) {
-      let currentDay = new CurrentWeather(
-        day.temp.day,
-        day.humidity,
-        day.wind_speed)
-        .setDate(day.dt)
-        .setIconName(day.weather[0].icon)
-        .setIconDescription(day.weather[0].description)
-        .setUV(day.uvi);
-      this.setCurrentDay(currentDay);
+      this.currentDay.setUV(day.uvi);
     } else if (index <= 5) {
       let nextFiveDay = new DailyWeather(
         day.temp.day,
@@ -206,7 +198,15 @@ function processCurrentWeatherData(data) {
       data.name, 
       data.coord.lat,
       data.coord.lon);
-
+    const currentDay = new CurrentWeather(
+      data.main.temp,
+      data.main.humidity,
+      data.wind.speed)
+      .setDate(data.dt)
+      .setIconName(data.weather[0].icon)
+      .setIconDescription(data.weather[0].description);
+    weatherData.setCurrentDay(currentDay);
+    //make next call to one call api
     fetchData(getOneCallURL(data.coord.lat, data.coord.lon), function(data) {
       processOneCallData(data, weatherData);
     });
