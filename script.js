@@ -251,30 +251,53 @@ function getOneCallURL(lat, lon) {
 
 /***** Display functions *****/
 function displayInformation(weatherObj) {
+  resetCityInfo(weatherObj.city.cityName);
   displayOverviewCard(weatherObj.currentDay, weatherObj.city.cityName);
   displayFiveDayForecast(weatherObj.nextFiveDays);
   displayNewSearchEntry(weatherObj.city.cityName);
 }
 
-function displayOverviewCard(currentDay, cityName) {
-  const displayDiv = document.getElementById('display-info');
+function resetCityInfo(cityName) {
+  const cityInfo = document.getElementById('city-info');
+  cityInfo.setAttribute('data-city', cityName);
+  cityInfo.innerHTML = '';
+}
 
-  displayDiv.innerHTML =
-    `<div class="card-body" id="city-info" data-city="${cityName}">
-      <h2 class="d-inline-block mr-3">${cityName} ${formatDate(currentDay.date)}</h2>
-      <img class="d-inline-block" src="http://openweathermap.org/img/wn/${currentDay.icon.name}@2x.png" alt="${currentDay.icon.description}">
-      <p>Temperature: ${currentDay.temp} &#176;F</p>
-      <p>Humidity: ${currentDay.humidity}&#37;</p>
-      <p>Wind Speed: ${currentDay.windSpeed} MPH</p>
-      <p>UV Index: <span id="current-uv-index" class="${currentDay.uv.color} py-1 px-2 rounded">${currentDay.uv.index}</span></p>
+function displayOverviewCard(currentDay, cityName) {
+  const cityInfo = document.getElementById('city-info');
+
+  cityInfo.innerHTML +=
+    `<div class="row mb-4">
+      <div class="col">
+        <div class="card" id="display-info">
+          <div class="card-body">
+            <div class="card-body" id="city-info" data-city="${cityName}">
+              <h2 class="d-inline-block mr-3">${cityName} ${formatDate(currentDay.date)}</h2>
+              <img class="d-inline-block" src="http://openweathermap.org/img/wn/${currentDay.icon.name}@2x.png" alt="${currentDay.icon.description}">
+              <p>Temperature: ${currentDay.temp} &#176;F</p>
+              <p>Humidity: ${currentDay.humidity}&#37;</p>
+              <p>Wind Speed: ${currentDay.windSpeed} MPH</p>
+              <p>UV Index: <span id="current-uv-index" class="${currentDay.uv.color} py-1 px-2 rounded">${currentDay.uv.index}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>`;
 }
 
 function displayFiveDayForecast(dayList) {
-  const fiveDayForecastContainer = document.getElementById('five-day-forecast-cards');
-  fiveDayForecastContainer.innerHTML = '';
+  const cityInfo = document.getElementById('city-info');
+  cityInfo.innerHTML += 
+    `<div class="row">
+      <div class="col">
+        <h3>5-Day Forecast:</h3>
+          <div class="row" id="five-day-forecast-cards">
+          </div>
+        </div>
+      </div>`;
+  const fiveDayForecastCards = document.getElementById('five-day-forecast-cards');
   for (day of dayList) {
-    fiveDayForecastContainer.innerHTML +=
+    fiveDayForecastCards.innerHTML +=
       `<div class="col-lg" id="five-day-weather-card">
         <div class="card bg-primary text-white">
           <div class="card-body d-flex flex-column justify-content-center align-items-center">
