@@ -236,6 +236,14 @@ function processCurrentWeatherData(data) {
   }
 }
 
+function processOneCallData(data, weatherData) {
+  const weatherObj = weatherData;
+  weatherObj.setDays(data.daily);
+
+  displayInformation(weatherObj);
+  saveWeatherObjToLocal(weatherObj);
+}
+
 //get uv index of the current day
 function getUVIndex(weatherObj, API_KEY) {
   //JSON to create a deep copy of the weatherObj since values are changing
