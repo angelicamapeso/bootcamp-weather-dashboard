@@ -144,6 +144,8 @@ WeatherData.prototype.setDays = function (dayList) {
   //5 day forecast returns weather every 3 hours per day
   //24 hrs in a day, so every 24/3 = 8 entries,
   //gives you the entry for the next day at the same time
+  const listLength = dayList.length;
+  console.log(listLength);
   dayList.forEach(function(day, index) {
     if (index === 0) {
       let currentDay = new CurrentWeather(
@@ -154,8 +156,7 @@ WeatherData.prototype.setDays = function (dayList) {
         .setIconName(day.weather[0].icon)
         .setIconDescription(day.weather[0].description);
       this.setCurrentDay(currentDay);
-    } //needed to subtract 1 since indexes start at 0 
-    else if (index % (8 - 1) === 0) {
+    } else if (index % 8 === 0 || index === listLength - 1) {
       let nextFiveDay = new DailyWeather(
         day.main.temp,
         day.main.humidity)
