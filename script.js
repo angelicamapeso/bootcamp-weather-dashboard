@@ -188,7 +188,9 @@ const API_KEY = '8364edf40aaaa47bca43e4b4901faf72';
 
 function startGettingWeatherData(cityName) {
   // getFiveDayForecast(cityName, API_KEY);
-  fetchData(getCurrentWeatherURL(cityName), processCurrentWeatherData);
+  if (!isCurrentlyDisplayed(cityName)) {
+    fetchData(getCurrentWeatherURL(cityName), processCurrentWeatherData);
+  }
 }
 
 //general function to fetch data
@@ -258,7 +260,7 @@ function displayOverviewCard(currentDay, cityName) {
   const displayDiv = document.getElementById('display-info');
 
   displayDiv.innerHTML =
-    `<div class="card-body">
+    `<div class="card-body" id="city-info" data-city="${cityName}">
       <h2 class="d-inline-block mr-3">${cityName} ${formatDate(currentDay.date)}</h2>
       <img class="d-inline-block" src="http://openweathermap.org/img/wn/${currentDay.icon.name}@2x.png" alt="${currentDay.icon.description}">
       <p>Temperature: ${currentDay.temp} &#176;F</p>
@@ -305,6 +307,11 @@ function isExistingSearch(cityName, searchHistoryList) {
     }
   }
   return false;
+}
+
+function isCurrentlyDisplayed(cityName) {
+  const currentDisplay = document.getElementById('city-info').dataset.city;
+  return currentDisplay === cityName ? true : false; 
 }
 
 /***** Formatting functions *****/
