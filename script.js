@@ -109,7 +109,6 @@ WeatherData.prototype.setDays = function (dayList) {
   //24 hrs in a day, so every 24/3 = 8 entries,
   //gives you the entry for the next day at the same time
   const listLength = dayList.length;
-  console.log(listLength);
   dayList.forEach(function(day, index) {
     if (index === 0) {
       this.currentDay.setUV(day.uvi);
