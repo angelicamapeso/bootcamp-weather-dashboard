@@ -308,6 +308,10 @@ function hideElement(name) {
   document.getElementById(name).setAttribute('style', 'display: none!important');
 }
 
+function showElement(name) {
+  document.getElementById(name).style.display = 'block';
+}
+
 /***** Condition Checkers *****/
 function isExistingSearch(cityName, searchHistoryList) {
   const searchHistoryItems = searchHistoryList.children;
