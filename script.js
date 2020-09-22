@@ -11,7 +11,8 @@ class DailyWeather {
   //setters
   setDate(openWeatherDate) {
     //date will convert the openWeather date to local time
-    this.date = new Date(openWeatherDate * 1000);
+    const convertedDate = new Date(openWeatherDate * 1000);
+    this.date = `(${convertedDate.getMonth() + 1}/${convertedDate.getDate()}/${convertedDate.getFullYear()})`;
     return this;
   }
   setIconName(iconName, openWeatherDate) {
@@ -259,7 +260,7 @@ function displayOverviewCard(currentDay, cityName) {
         <div class="card" id="display-info">
           <div class="card-body">
             <div class="card-body" id="city-info" data-city="${cityName}">
-              <h2 class="d-inline-block mr-3">${cityName} ${formatDate(currentDay.date)}</h2>
+              <h2 class="d-inline-block mr-3">${cityName} ${currentDay.date}</h2>
               <img class="d-inline-block" src="https://openweathermap.org/img/wn/${currentDay.icon.name}@2x.png" alt="${currentDay.icon.description}">
               <p>Temperature: ${currentDay.temp} &#176;F</p>
               <p>Humidity: ${currentDay.humidity}&#37;</p>
@@ -288,7 +289,7 @@ function displayFiveDayForecast(dayList) {
       `<div class="col-lg" id="five-day-weather-card">
         <div class="card bg-primary text-white">
           <div class="card-body d-flex flex-column justify-content-center align-items-center">
-            <p class="h5">${formatDate(day.date)}</p>
+            <p class="h5">${day.date}</p>
             <img class="mb-3" src="https://openweathermap.org/img/wn/${day.icon.name}@2x.png" alt="${day.icon.description}">
             <p>Temp: ${day.temp} &#176;F</p>
             <p>Humidity: ${day.humidity}&#37;</p>
