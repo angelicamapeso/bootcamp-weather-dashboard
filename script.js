@@ -186,7 +186,7 @@ function fetchData(queryURL, nextAction) {
 //processing data functions
 function processCurrentWeatherData(data) {
   if (data.cod != 200) {
-    showSearchError(properlyCapitalize(data.message));
+    showSearchError('City not found');
   } else {
     const weatherData = new WeatherData(
       data.name,
@@ -313,12 +313,6 @@ function isExistingSearch(cityName, searchHistoryList) {
 function isCurrentlyDisplayed(cityName) {
   const currentDisplay = document.getElementById('city-info').dataset.city;
   return currentDisplay === cityName ? true : false;
-}
-
-/***** Formatting functions *****/
-function properlyCapitalize(str) {
-  let copy = str.toString().toLowerCase();
-  return copy.charAt(0).toUpperCase() + copy.slice(1);
 }
 
 /***** Local storage *****/
