@@ -34,11 +34,6 @@ DailyWeather.prototype.generateIconEnding = function(openWeatherDate) {
 
 /***** CURRENT WEATHER CLASS******/
 class CurrentWeather extends DailyWeather{
-  windSpeed = 0;
-  uv = {
-    index: 0,
-    color: '',
-  };
   constructor(temp, humidity, windSpeed, iconDescription) {
     super(temp, humidity, iconDescription);
     this.windSpeed = windSpeed;
@@ -46,8 +41,10 @@ class CurrentWeather extends DailyWeather{
 
   //setter
   setUV(uvIndex) {
-    this.uv.index = uvIndex;
-    this.uv.color = this.generateUVIndexColor(uvIndex);
+    this.uv = {
+      index: uvIndex,
+      color: this.generateUVIndexColor(uvIndex),
+    }
     return this;
   }
 }
