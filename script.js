@@ -88,7 +88,7 @@ class WeatherData {
 
 //sets current day uvi
 //sets next 5 days
-WeatherData.prototype.setDayInfo = function (dayList) {
+WeatherData.prototype.setOneCallInfo = function (dayList) {
   dayList.forEach(function(day, index) {
     if (index === 0) {
       this.currentDay.setUV(day.uvi);
@@ -206,7 +206,7 @@ function processCurrentWeatherData(data) {
 
 function processOneCallData(data, weatherData) {
   const weatherObj = weatherData;
-  weatherObj.setDayInfo(data.daily);
+  weatherObj.setOneCallInfo(data.daily);
 
   displayInformation(weatherObj);
   saveWeatherObjToLocal(weatherObj);
