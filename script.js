@@ -285,7 +285,9 @@ function displayNewSearchEntry(cityName) {
   if (!isExistingSearch(cityName, searchHistoryList)) {
     //add if duplicate not found
   searchHistoryList.innerHTML +=
-  `<li class="list-group-item search-entry" data-city-name="${cityName}">${cityName}</li>`;
+  `<li class="list-group-item p-0">
+    <button class="search-entry w-100 h-100 btn btn-link" data-city-name="${cityName}">${cityName}</button>
+  </li>`;
   }
 }
 
@@ -303,7 +305,8 @@ function isExistingSearch(cityName, searchHistoryList) {
   const searchHistoryItems = searchHistoryList.children;
   //keep from adding duplicates
   for (item of searchHistoryItems) {
-    if (item.dataset.cityName === cityName) {
+    console.log(item.firstElementChild.dataset.cityName);
+    if (item.firstElementChild.dataset.cityName === cityName) {
       return true;
     }
   }
