@@ -66,18 +66,13 @@ CurrentWeather.prototype.generateUVIndexColor = function(uvIndex) {
 
 /***** WEATHER DATA CLASS ******/
 class WeatherData {
-  city = {
-    cityName: '',
-    lat: '',
-    lon: '',
-  };
-  currentDay;
-  nextFiveDays = [];
-
   constructor(cityName, lat, lon) {
-    this.city.cityName = cityName;
-    this.city.lat = lat;
-    this.city.lon = lon;
+    this.city = {
+      name: cityName,
+      lat: lat,
+      lon: lon,
+    }
+    this.nextFiveDays = [];
   }
 
   //setters
@@ -236,10 +231,10 @@ function getOneCallURL(lat, lon) {
 
 /***** Display functions *****/
 function displayInformation(weatherObj) {
-  resetCityInfo(weatherObj.city.cityName);
-  displayOverviewCard(weatherObj.currentDay, weatherObj.city.cityName);
+  resetCityInfo(weatherObj.city.name);
+  displayOverviewCard(weatherObj.currentDay, weatherObj.city.name);
   displayFiveDayForecast(weatherObj.nextFiveDays);
-  displayNewSearchEntry(weatherObj.city.cityName);
+  displayNewSearchEntry(weatherObj.city.name);
 }
 
 function resetCityInfo(cityName) {
