@@ -233,7 +233,8 @@ function getOneCallURL(lat, lon) {
 
 /***** Display functions *****/
 function displayInformation(weatherObj) {
-  resetCityInfo(weatherObj.city.name);
+  hideElement('start-text');
+  setCityInfo(weatherObj.city.name);
   displayOverviewCard(weatherObj.currentDay, weatherObj.city.name);
   displayFiveDayForecast(weatherObj.nextFiveDays);
   displayNewSearchEntry(weatherObj.city.name);
