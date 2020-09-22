@@ -243,45 +243,29 @@ function displayInformation(weatherObj) {
 function setCityInfo(cityName) {
   const cityInfo = document.getElementById('city-info');
   cityInfo.setAttribute('data-city', cityName);
-  cityInfo.innerHTML = '';
 }
 
 function displayOverviewCard(currentDay, cityName) {
-  const cityInfo = document.getElementById('city-info');
+  const currentWeather = document.getElementById('current-weather');
 
-  cityInfo.innerHTML +=
-    `<div class="row mb-4">
-      <div class="col">
-        <div class="card" id="display-info">
-          <div class="card-body">
-            <div class="card-body" id="city-info" data-city="${cityName}">
-              <h2 class="d-inline-block mr-3">${cityName} ${currentDay.date}</h2>
-              <img class="d-inline-block" src="https://openweathermap.org/img/wn/${currentDay.icon.name}@2x.png" alt="${currentDay.icon.description}">
-              <p>Temperature: ${currentDay.temp} &#176;F</p>
-              <p>Humidity: ${currentDay.humidity}&#37;</p>
-              <p>Wind Speed: ${currentDay.windSpeed} MPH</p>
-              <p>UV Index: <span id="current-uv-index" class="${currentDay.uv.color} py-1 px-2 rounded">${currentDay.uv.index}</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
+  currentWeather.innerHTML =
+    `<div class="card-body">
+      <h2 class="d-inline-block mr-3">${cityName} ${currentDay.date}</h2>
+      <img class="d-inline-block" src="https://openweathermap.org/img/wn/${currentDay.icon.name}@2x.png" alt="${currentDay.icon.description}">
+      <p>Temperature: ${currentDay.temp} &#176;F</p>
+      <p>Humidity: ${currentDay.humidity}&#37;</p>
+      <p>Wind Speed: ${currentDay.windSpeed} MPH</p>
+      <p>UV Index: <span id="current-uv-index" class="${currentDay.uv.color} py-1 px-2 rounded">${currentDay.uv.index}</span></p>
     </div>`;
+  showElement('curr-weather-row');
 }
 
 function displayFiveDayForecast(dayList) {
-  const cityInfo = document.getElementById('city-info');
-  cityInfo.innerHTML +=
-    `<div class="row">
-      <div class="col">
-        <h3>5-Day Forecast:</h3>
-          <div class="row" id="five-day-forecast-cards">
-          </div>
-        </div>
-      </div>`;
   const fiveDayForecastCards = document.getElementById('five-day-forecast-cards');
+  fiveDayForecastCards.innerHTML = '';
   for (day of dayList) {
     fiveDayForecastCards.innerHTML +=
-      `<div class="col-lg" id="five-day-weather-card">
+      `<div class="col-lg">
         <div class="card bg-primary text-white">
           <div class="card-body d-flex flex-column justify-content-center align-items-center">
             <p class="h5">${day.date}</p>
@@ -292,6 +276,7 @@ function displayFiveDayForecast(dayList) {
         </div>
       </div>`;
   }
+  showElement('daily-weather-row');
 }
 
 function displayNewSearchEntry(cityName) {
