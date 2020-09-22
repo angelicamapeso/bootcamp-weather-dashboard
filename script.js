@@ -88,8 +88,7 @@ class WeatherData {
 
 //sets current day uvi
 //sets next 5 days
-WeatherData.prototype.setDays = function (dayList) {
-  const listLength = dayList.length;
+WeatherData.prototype.setDayInfo = function (dayList) {
   dayList.forEach(function(day, index) {
     if (index === 0) {
       this.currentDay.setUV(day.uvi);
@@ -100,9 +99,9 @@ WeatherData.prototype.setDays = function (dayList) {
         day.weather[0].description)
         .setDate(day.dt)
         .setIconName(day.weather[0].icon, day.dt);
-      this.appendToNextFiveDays(nextFiveDay);
+        this.appendToNextFiveDays(nextFiveDay);
     }
-  }.bind(this));
+  }, this);
   return this;
 }
 
@@ -207,7 +206,7 @@ function processCurrentWeatherData(data) {
 
 function processOneCallData(data, weatherData) {
   const weatherObj = weatherData;
-  weatherObj.setDays(data.daily);
+  weatherObj.setDayInfo(data.daily);
 
   displayInformation(weatherObj);
   saveWeatherObjToLocal(weatherObj);
