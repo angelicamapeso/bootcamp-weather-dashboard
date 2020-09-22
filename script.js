@@ -239,7 +239,7 @@ function displayInformation(weatherObj) {
   displayNewSearchEntry(weatherObj.city.name);
 }
 
-function resetCityInfo(cityName) {
+function setCityInfo(cityName) {
   const cityInfo = document.getElementById('city-info');
   cityInfo.setAttribute('data-city', cityName);
   cityInfo.innerHTML = '';
