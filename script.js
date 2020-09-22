@@ -17,7 +17,7 @@ class DailyWeather {
   }
   setIconName(iconName, openWeatherDate) {
     //will use the current time, if time has not been set
-    //openweather icons are set for UTC/GMT time, need to update appearance 
+    //openweather icons are set for UTC/GMT time, need to update appearance
     //since there might be a time difference
     this.icon.name = iconName.slice(0, iconName.length - 1) + this.generateIconEnding(openWeatherDate);
     return this;
@@ -133,7 +133,7 @@ function submitSearchHistoryEntry(event) {
 function submitSearch(event) {
   event.preventDefault();
   resetSearchError();
-  
+
   const userInput = getUserInput();
 
   if (userInput) {
@@ -186,7 +186,7 @@ function processCurrentWeatherData(data) {
     showSearchError(properlyCapitalize(data.message));
   } else {
     const weatherData = new WeatherData(
-      data.name, 
+      data.name,
       data.coord.lat,
       data.coord.lon);
     const currentDay = new CurrentWeather(
@@ -266,7 +266,7 @@ function displayOverviewCard(currentDay, cityName) {
 
 function displayFiveDayForecast(dayList) {
   const cityInfo = document.getElementById('city-info');
-  cityInfo.innerHTML += 
+  cityInfo.innerHTML +=
     `<div class="row">
       <div class="col">
         <h3>5-Day Forecast:</h3>
@@ -295,7 +295,7 @@ function displayNewSearchEntry(cityName) {
 
   if (!isExistingSearch(cityName, searchHistoryList)) {
     //add if duplicate not found
-  searchHistoryList.innerHTML += 
+  searchHistoryList.innerHTML +=
   `<li class="list-group-item search-entry" data-city-name="${cityName}">${cityName}</li>`;
   }
 }
@@ -314,7 +314,7 @@ function isExistingSearch(cityName, searchHistoryList) {
 
 function isCurrentlyDisplayed(cityName) {
   const currentDisplay = document.getElementById('city-info').dataset.city;
-  return currentDisplay === cityName ? true : false; 
+  return currentDisplay === cityName ? true : false;
 }
 
 /***** Formatting functions *****/
