@@ -327,11 +327,6 @@ function isCurrentlyDisplayed(cityName) {
 }
 
 /***** Formatting functions *****/
-function formatDate(date) {
-  const newDate = new Date(date);
-  return `(${newDate.getMonth() + 1}/${newDate.getDate()}/${newDate.getFullYear()})`;
-}
-
 function properlyCapitalize(str) {
   let copy = str.toString().toLowerCase();
   return copy.charAt(0).toUpperCase() + copy.slice(1);
