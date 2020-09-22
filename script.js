@@ -1,16 +1,11 @@
 /***** DAILY WEATHER CLASS******/
 class DailyWeather {
-  //Date in unix
-  date = new Date();
-  icon = {
-    name: '',
-    description: '',
-  }
-  temp = 0;
-  humidity = 0;
-  constructor(temp, humidity) {
+  constructor(temp, humidity, iconDescription) {
     this.temp = temp;
     this.humidity = humidity;
+    this.icon = {
+      description: iconDescription,
+    }
   }
 
   //setters
@@ -24,10 +19,6 @@ class DailyWeather {
     //openweather icons are set for UTC/GMT time, need to update appearance 
     //since there might be a time difference
     this.icon.name = iconName.slice(0, iconName.length - 1) + this.generateIconEnding();
-    return this;
-  }
-  setIconDescription(iconDescription) {
-    this.icon.description = iconDescription;
     return this;
   }
 }
@@ -47,8 +38,8 @@ class CurrentWeather extends DailyWeather{
     index: 0,
     color: '',
   };
-  constructor(temp, humidity, windSpeed) {
-    super(temp, humidity);
+  constructor(temp, humidity, windSpeed, iconDescription) {
+    super(temp, humidity, iconDescription);
     this.windSpeed = windSpeed;
   }
 
@@ -112,10 +103,10 @@ WeatherData.prototype.setDays = function (dayList) {
     } else if (index <= 5) {
       let nextFiveDay = new DailyWeather(
         day.temp.day,
-        day.humidity)
+        day.humidity,
+        day.weather[0].description)
         .setDate(day.dt)
-        .setIconName(day.weather[0].icon)
-        .setIconDescription(day.weather[0].description);
+        .setIconName(day.weather[0].icon);
       this.appendToNextFiveDays(nextFiveDay);
     }
   }.bind(this));
@@ -209,10 +200,10 @@ function processCurrentWeatherData(data) {
     const currentDay = new CurrentWeather(
       data.main.temp,
       data.main.humidity,
+      data.weather[0].description,
       data.wind.speed)
       .setDate(data.dt)
-      .setIconName(data.weather[0].icon)
-      .setIconDescription(data.weather[0].description);
+      .setIconName(data.weather[0].icon);
     weatherData.setCurrentDay(currentDay);
     //make next call to one call api
     fetchData(getOneCallURL(data.coord.lat, data.coord.lon), function(data) {
