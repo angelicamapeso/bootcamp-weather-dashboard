@@ -111,6 +111,9 @@ window.onload = function() {
   const lastSearchedCity = getLastSearchedCity();
   if (lastSearchedCity) {
     startGettingWeatherData(lastSearchedCity);
+  } else {
+    hideElement('curr-weather-row');
+    hideElement('daily-weather-row');
   }
 }
 
@@ -298,6 +301,11 @@ function displayNewSearchEntry(cityName) {
   searchHistoryList.innerHTML +=
   `<li class="list-group-item search-entry" data-city-name="${cityName}">${cityName}</li>`;
   }
+}
+
+/***** Show/Hide functions *****/
+function hideElement(name) {
+  document.getElementById(name).setAttribute('style', 'display: none!important');
 }
 
 /***** Condition Checkers *****/
