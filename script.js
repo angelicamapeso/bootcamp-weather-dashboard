@@ -108,9 +108,9 @@ WeatherData.prototype.setOneCallInfo = function (dayList) {
 /***** PAGE FUNCTIONS ******/
 //Get and display information on page load
 window.onload = function() {
-  const localWeatherObj = getWeatherObjFromLocal();
-  if (localWeatherObj) {
-    displayInformation(localWeatherObj);
+  const lastSearchedCity = getLastSearchedCity();
+  if (lastSearchedCity) {
+    startGettingWeatherData(lastSearchedCity);
   }
 }
 
@@ -209,7 +209,7 @@ function processOneCallData(data, weatherData) {
   weatherObj.setOneCallInfo(data.daily);
 
   displayInformation(weatherObj);
-  saveWeatherObjToLocal(weatherObj);
+  saveLastSearchedCity(weatherObj.city.name);
 }
 
 //getting URL queries
@@ -324,13 +324,12 @@ function properlyCapitalize(str) {
 }
 
 /***** Local storage *****/
-function saveWeatherObjToLocal(weatherObj) {
-  localStorage.setItem('weatherObj', JSON.stringify(weatherObj));
+function saveLastSearchedCity(cityName) {
+  localStorage.setItem('lastSearchedCity', cityName);
 }
 
-function getWeatherObjFromLocal() {
-  let weatherObj = localStorage.getItem('weatherObj');
-  return weatherObj ? JSON.parse(weatherObj) : null;
+function getLastSearchedCity() {
+  return localStorage.getItem('lastSearchedCity');
 }
 
 
