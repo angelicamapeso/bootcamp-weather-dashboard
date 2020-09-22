@@ -14,18 +14,18 @@ class DailyWeather {
     this.date = new Date(openWeatherDate * 1000);
     return this;
   }
-  setIconName(iconName) {
+  setIconName(iconName, openWeatherDate) {
     //will use the current time, if time has not been set
     //openweather icons are set for UTC/GMT time, need to update appearance 
     //since there might be a time difference
-    this.icon.name = iconName.slice(0, iconName.length - 1) + this.generateIconEnding();
+    this.icon.name = iconName.slice(0, iconName.length - 1) + this.generateIconEnding(openWeatherDate);
     return this;
   }
 }
 
 //gives us icon ending with day or night
-DailyWeather.prototype.generateIconEnding = function() {
-  const hour = this.date.getHours();
+DailyWeather.prototype.generateIconEnding = function(openWeatherDate) {
+  const hour = new Date(openWeatherDate * 1000).getHours();
   //if hour is between 12AM and 12PM, should be night icon
   //else, should be day icon
   return (hour >= 0 && hour < 12) ? 'n' : 'd';
@@ -106,7 +106,7 @@ WeatherData.prototype.setDays = function (dayList) {
         day.humidity,
         day.weather[0].description)
         .setDate(day.dt)
-        .setIconName(day.weather[0].icon);
+        .setIconName(day.weather[0].icon, day.dt);
       this.appendToNextFiveDays(nextFiveDay);
     }
   }.bind(this));
@@ -203,7 +203,7 @@ function processCurrentWeatherData(data) {
       data.weather[0].description,
       data.wind.speed)
       .setDate(data.dt)
-      .setIconName(data.weather[0].icon);
+      .setIconName(data.weather[0].icon, data.dt);
     weatherData.setCurrentDay(currentDay);
     //make next call to one call api
     fetchData(getOneCallURL(data.coord.lat, data.coord.lon), function(data) {
