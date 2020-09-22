@@ -198,8 +198,8 @@ function processCurrentWeatherData(data) {
     const currentDay = new CurrentWeather(
       data.main.temp,
       data.main.humidity,
-      data.weather[0].description,
-      data.wind.speed)
+      data.wind.speed,
+      data.weather[0].description)
       .setDate(data.dt)
       .setIconName(data.weather[0].icon, data.dt);
     weatherData.setCurrentDay(currentDay);
